@@ -1,7 +1,9 @@
-package ru.artempugachev.bakingapp;
+package ru.artempugachev.bakingapp.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import ru.artempugachev.bakingapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
