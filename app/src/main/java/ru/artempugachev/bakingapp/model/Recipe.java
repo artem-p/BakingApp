@@ -26,4 +26,8 @@ public final class Recipe {
 
     @SerializedName("image")
     private String imageUrl;
+
+    public String getName() {
+        return name;
+    }
 }

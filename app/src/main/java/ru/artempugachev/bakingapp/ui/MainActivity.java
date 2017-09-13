@@ -4,6 +4,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements
     @BindView(R.id.recipeRecycler)
     RecyclerView recipeRecyclerView;
 
+    RecipeAdapter recipeAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +33,18 @@ public class MainActivity extends AppCompatActivity implements
         ButterKnife.bind(this);
 
         getSupportLoaderManager().initLoader(RECIPE_LIST_LOADER_ID, null, this);
+
+        setUpRecipesRecycler();
+    }
+
+
+    private void setUpRecipesRecycler() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recipeRecyclerView.setLayoutManager(layoutManager);
+        recipeRecyclerView.setHasFixedSize(true);
+
+        recipeAdapter = new RecipeAdapter();
+        recipeRecyclerView.setAdapter(recipeAdapter);
     }
 
 
@@ -49,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onLoadFinished(Loader<List<Recipe>> loader, List<Recipe> recipes) {
         if (recipes != null && !recipes.isEmpty()) {
-
+            recipeAdapter.setRecipes(recipes);
         } else {
             // todo handle no recipes
         }
