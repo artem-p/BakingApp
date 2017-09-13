@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements
 
 
     /**
-     * Recipe load listener methods
+     * Recipe load listener methods. Use it to show/hide progressbar while loading recipe list
      * */
     @Override
     public void onStartLoadingRecipes() {
