@@ -1,5 +1,6 @@
 package ru.artempugachev.bakingapp.ui;
 
+import android.content.Intent;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +17,8 @@ import ru.artempugachev.bakingapp.model.Recipe;
 import ru.artempugachev.bakingapp.network.RecipeListLoader;
 
 public class MainActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<List<Recipe>>, RecipeListLoader.RecipeLoadListener {
+        LoaderManager.LoaderCallbacks<List<Recipe>>, RecipeListLoader.RecipeLoadListener,
+        RecipeAdapter.RecipeClickListener {
 
     private static final int RECIPE_LIST_LOADER_ID = 42;
 
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements
         recipeRecyclerView.setLayoutManager(layoutManager);
         recipeRecyclerView.setHasFixedSize(true);
 
-        recipeAdapter = new RecipeAdapter();
+        recipeAdapter = new RecipeAdapter(this);
         recipeRecyclerView.setAdapter(recipeAdapter);
     }
 
@@ -87,5 +89,19 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onFinishLoadingRecipes() {
 
+    }
+
+
+    /**
+     * Handle click on recipe card. Show recipe details.
+     * */
+    @Override
+    public void onRecipeClick(int position) {
+        Recipe recipe = recipeAdapter.getRecipe(position);
+
+        if (recipe != null) {
+            Intent recipeDetailsActivityIntent = new Intent(MainActivity.this, RecipeDetailsActivity.class);
+            startActivity(recipeDetailsActivityIntent);
+        }
     }
 }

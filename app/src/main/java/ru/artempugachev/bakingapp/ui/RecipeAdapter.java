@@ -60,6 +60,18 @@ public final class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.Reci
 
 
     /**
+     * Return recipe with specified position
+     * */
+    public Recipe getRecipe(int position) {
+        if (recipes!= null && !recipes.isEmpty() && recipes.size() > position) {
+            return recipes.get(position);
+        } else {
+            return null;
+        }
+    }
+
+
+    /**
      * View holder
      * */
     public final class RecipeViewHolder extends RecyclerView.ViewHolder
@@ -79,7 +91,7 @@ public final class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.Reci
 
         @Override
         public void onClick(View v) {
-            recipeClickListener.onRecipeClick();
+            recipeClickListener.onRecipeClick(getAdapterPosition());
         }
     }
 
@@ -88,7 +100,7 @@ public final class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.Reci
      * Interface to handle clicks on recipe card
      * */
     public interface RecipeClickListener {
-        void onRecipeClick();
+        void onRecipeClick(int position);
     }
 }
 
