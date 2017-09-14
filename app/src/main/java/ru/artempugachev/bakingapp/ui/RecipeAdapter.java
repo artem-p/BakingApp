@@ -20,8 +20,10 @@ import ru.artempugachev.bakingapp.model.Recipe;
 
 public final class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
     private List<Recipe> recipes;
+    private RecipeClickListener recipeClickListener;
 
-    public RecipeAdapter() {
+    public RecipeAdapter(RecipeClickListener recipeClickListener) {
+        this.recipeClickListener = recipeClickListener;
     }
 
 
@@ -60,18 +62,33 @@ public final class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.Reci
     /**
      * View holder
      * */
-    public final class RecipeViewHolder extends RecyclerView.ViewHolder {
+    public final class RecipeViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
         @BindView(R.id.recipeTitle)
         TextView recipeTitle;
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
         }
 
         public void fillRecipe(Recipe recipe) {
             recipeTitle.setText(recipe.getName());
         }
+
+        @Override
+        public void onClick(View v) {
+            recipeClickListener.onRecipeClick();
+        }
+    }
+
+
+    /**
+     * Interface to handle clicks on recipe card
+     * */
+    public interface RecipeClickListener {
+        void onRecipeClick();
     }
 }
 
