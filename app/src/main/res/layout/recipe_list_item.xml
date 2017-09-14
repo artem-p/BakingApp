@@ -12,8 +12,7 @@
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:contentPaddingLeft="@dimen/recipe_card_padding"
-        card_view:contentPaddingRight="@dimen/recipe_card_padding"
+        card_view:contentPadding="@dimen/recipe_card_padding"
         card_view:cardCornerRadius="4dp">
 
 
@@ -28,6 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/baking_placeholder"
+                android:scaleType="fitXY"
                 />
 
             <TextView
@@ -35,6 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/recipe_name_default"
+                android:layout_marginTop="@dimen/recipe_card_margin"
                 style="@style/RecipeName"
                 />
         </LinearLayout>
