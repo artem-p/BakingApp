@@ -31,5 +31,25 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         if (intent != null && intent.hasExtra(MainActivity.RECIPE_EXTRA)) {
             recipe = intent.getParcelableExtra(MainActivity.RECIPE_EXTRA);
         }
+
+        if (recipe != null) {
+            fillViews(recipe);
+        } else {
+            showNoRecipe();
+        }
+    }
+
+    /**
+     * Fill recipe views with data
+     * */
+    private void fillViews(Recipe recipe) {
+
+    }
+
+    /**
+     * We have no recipe, show error text
+     * */
+    private void showNoRecipe() {
+
     }
 }
