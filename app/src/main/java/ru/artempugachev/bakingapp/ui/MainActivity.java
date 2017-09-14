@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements
         RecipeAdapter.RecipeClickListener {
 
     private static final int RECIPE_LIST_LOADER_ID = 42;
+    public static final String RECIPE_EXTRA = "recipe";
 
     @BindView(R.id.recipeRecycler)
     RecyclerView recipeRecyclerView;
@@ -102,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements
 
         if (recipe != null) {
             Intent recipeDetailsActivityIntent = new Intent(MainActivity.this, RecipeDetailsActivity.class);
+            recipeDetailsActivityIntent.putExtra(RECIPE_EXTRA, recipe);
             startActivity(recipeDetailsActivityIntent);
         }
     }
