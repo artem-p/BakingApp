@@ -4,6 +4,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="@dimen/recipe_card_margin"
     >
 
     <android.support.v7.widget.CardView
@@ -12,21 +13,31 @@
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/recipe_card_margin"
         card_view:contentPadding="@dimen/recipe_card_padding"
         card_view:cardCornerRadius="4dp">
 
-        <ImageView
-            android:id="@+id/recipe_image"
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baking_placeholder"
-            />
+            android:orientation="vertical"
+            >
 
-        <TextView
-            android:id="@+id/recipeTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            <ImageView
+                android:id="@+id/recipe_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baking_placeholder"
+                />
+
+            <TextView
+                android:id="@+id/recipeTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_name_default"
+                style="@style/RecipeName"
+                />
+        </LinearLayout>
+
     </android.support.v7.widget.CardView>
 </FrameLayout>
