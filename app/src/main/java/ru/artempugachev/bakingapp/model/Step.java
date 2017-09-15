@@ -73,4 +73,8 @@ public final class Step implements Parcelable {
     public String getTitle() {
         return title;
     }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
 }
