@@ -1,4 +1,4 @@
-package ru.artempugachev.bakingapp.ui.recipedetails;
+package ru.artempugachev.bakingapp.ui;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +13,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.artempugachev.bakingapp.R;
 import ru.artempugachev.bakingapp.model.Step;
-import ru.artempugachev.bakingapp.ui.RecipeAdapter;
 
 /**
  * Adapter for steps recycler view
@@ -21,9 +20,11 @@ import ru.artempugachev.bakingapp.ui.RecipeAdapter;
 
 public final class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHolder> {
     private List<Step> steps;
+    private StepClickListener stepClickListener;
 
-    public StepsAdapter(List<Step> steps) {
+    public StepsAdapter(List<Step> steps, StepClickListener stepClickListener) {
         this.steps = steps;
+        this.stepClickListener = stepClickListener;
     }
 
     @Override
@@ -50,13 +51,24 @@ public final class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsV
         return steps != null ? steps.size() : 0;
     }
 
-    public final class StepsViewHolder extends RecyclerView.ViewHolder {
+    public final class StepsViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
         @BindView(R.id.stepTitle)
         TextView stepTitle;
 
         public StepsViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            stepClickListener.onStepClick();
+        }
+    }
+
+    public interface StepClickListener {
+        void onStepClick();
     }
 }

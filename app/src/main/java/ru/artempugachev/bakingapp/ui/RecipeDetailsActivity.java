@@ -11,9 +11,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.artempugachev.bakingapp.R;
 import ru.artempugachev.bakingapp.model.Recipe;
-import ru.artempugachev.bakingapp.ui.recipedetails.StepsAdapter;
 
-public class RecipeDetailsActivity extends AppCompatActivity {
+public class RecipeDetailsActivity extends AppCompatActivity implements StepsAdapter.StepClickListener {
     @BindView(R.id.ingredientsTextView)
     TextView ingredientsTextView;
 
@@ -55,7 +54,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         LinearLayoutManager stepsLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         stepsRecycler.setLayoutManager(stepsLayoutManager);
 
-        stepsAdapter = new StepsAdapter(recipe.getSteps());
+        stepsAdapter = new StepsAdapter(recipe.getSteps(), this);
         stepsRecycler.setAdapter(stepsAdapter);
     }
 
@@ -64,5 +63,15 @@ public class RecipeDetailsActivity extends AppCompatActivity {
      * */
     private void showNoRecipe() {
 
+    }
+
+
+    /**
+     * Handle click on step. Show step details.
+     * */
+    @Override
+    public void onStepClick() {
+        Intent intent = new Intent(RecipeDetailsActivity.this, StepActivity.class);
+        startActivity(intent);
     }
 }

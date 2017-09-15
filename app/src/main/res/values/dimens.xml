@@ -8,4 +8,5 @@
     <dimen name="recipe_details_padding">8dp</dimen>
     <dimen name="ingredients_card_margin">8dp</dimen>
     <dimen name="step_item_padding">16dp</dimen>
+    <dimen name="step_list_card_margin">16dp</dimen>
 </resources>
