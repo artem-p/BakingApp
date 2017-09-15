@@ -33,6 +33,17 @@ public final class Step implements Parcelable {
         thumbnailUrl = in.readString();
     }
 
+
+    /**
+     * Display step as text string. (ex.: 0. Recipe Introduction).
+     * */
+    public String asText() {
+        return id + ". " + title;
+    }
+
+    /**
+     * Parcelable methods
+     * */
     public static final Creator<Step> CREATOR = new Creator<Step>() {
         @Override
         public Step createFromParcel(Parcel in) {
