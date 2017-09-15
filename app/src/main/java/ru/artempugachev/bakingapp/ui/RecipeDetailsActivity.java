@@ -43,7 +43,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
      * Fill recipe views with data
      * */
     private void fillViews(Recipe recipe) {
-
+        setTitle(recipe.getName());
     }
 
     /**
