@@ -25,6 +25,18 @@ public final class Ingredient implements Parcelable {
         name = in.readString();
     }
 
+
+    /**
+     * As text string
+     * Name (quantity measure)
+     * */
+    public String asText() {
+        return name + "(" + quantity + " " + measureUnit + ")";
+    }
+
+    /**
+     * Parcelable methods
+     * */
     public static final Creator<Ingredient> CREATOR = new Creator<Ingredient>() {
         @Override
         public Ingredient createFromParcel(Parcel in) {
