@@ -40,6 +40,18 @@ public final class Recipe implements Parcelable {
         imageUrl = in.readString();
     }
 
+    /**
+     * Returns ingredients list as text with markers and new lines
+     * Use it to fill ingredients in recipe details
+     * */
+    public String[] toIngredientsListText() {
+        List<String> ingredientList = new ArrayList<>();
+
+    }
+
+    /**
+     * Parcelable methods
+     * */
     public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
         @Override
         public Recipe createFromParcel(Parcel in) {
