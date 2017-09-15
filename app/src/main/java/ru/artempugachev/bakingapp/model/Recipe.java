@@ -40,6 +40,7 @@ public final class Recipe implements Parcelable {
         imageUrl = in.readString();
     }
 
+
     /**
      * Returns ingredients list as text with bullets and new lines
      * Use it to fill ingredients in recipe details
@@ -56,6 +57,7 @@ public final class Recipe implements Parcelable {
 
         return ingredientsText;
     }
+
 
     /**
      * Parcelable methods

@@ -31,7 +31,7 @@ public final class Ingredient implements Parcelable {
      * Name (quantity measure)
      * */
     public String asText() {
-        return name + "(" + quantity + " " + measureUnit + ")";
+        return name + " (" + quantity + " " + measureUnit + ")";
     }
 
     /**

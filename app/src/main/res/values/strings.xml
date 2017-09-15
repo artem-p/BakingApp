@@ -3,4 +3,5 @@
     <string name="recipe_error_message">Cannot fetch recipes. Check your internet connection</string>
     <string name="recipe_name_default">Recipe name</string>
     <string name="default_step_title_text">0. Recipe Introduction</string>
+    <string name="ingredients">Ingredients:</string>
 </resources>
