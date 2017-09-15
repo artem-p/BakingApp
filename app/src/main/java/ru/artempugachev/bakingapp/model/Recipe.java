@@ -41,15 +41,15 @@ public final class Recipe implements Parcelable {
     }
 
     /**
-     * Returns ingredients list as text with markers and new lines
+     * Returns ingredients list as text with bullets and new lines
      * Use it to fill ingredients in recipe details
      * */
-    public String toIngredientsListText() {
+    public String toIngredientsText() {
         String ingredientsText = "";
 
         if (ingredients != null && !ingredients.isEmpty()) {
             for (Ingredient ingredient : ingredients) {
-                String ingredientItem = "&#8226" + ingredient.asText() + "\\n";
+                String ingredientItem = "\u2022 " + ingredient.asText() + "\n";
                 ingredientsText += ingredientItem;
             }
         }

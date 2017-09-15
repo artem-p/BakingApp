@@ -44,6 +44,9 @@ public class RecipeDetailsActivity extends AppCompatActivity {
      * */
     private void fillViews(Recipe recipe) {
         setTitle(recipe.getName());
+
+        String ingredientsText = recipe.toIngredientsText();
+        ingredientsTextView.setText(ingredientsText);
     }
 
     /**
