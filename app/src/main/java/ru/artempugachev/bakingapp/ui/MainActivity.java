@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private static final int RECIPE_LIST_LOADER_ID = 42;
     public static final String RECIPE_EXTRA = "recipe";
+    public static final String STEP_EXTRA = "step";
 
     @BindView(R.id.recipeRecycler)
     RecyclerView recipeRecyclerView;

@@ -70,8 +70,9 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepsAda
      * Handle click on step. Show step details.
      * */
     @Override
-    public void onStepClick() {
+    public void onStepClick(int stepPosition) {
         Intent intent = new Intent(RecipeDetailsActivity.this, StepActivity.class);
+        intent.putExtra(MainActivity.STEP_EXTRA, recipe.getStep(stepPosition));
         startActivity(intent);
     }
 }

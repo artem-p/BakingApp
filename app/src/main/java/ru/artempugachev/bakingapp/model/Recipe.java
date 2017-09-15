@@ -58,6 +58,13 @@ public final class Recipe implements Parcelable {
         return ingredientsText;
     }
 
+    /**
+     * Return recipe step by id
+     * */
+    public Step getStep(int stepId) {
+        return steps.get(stepId);
+    }
+
 
     /**
      * Parcelable methods

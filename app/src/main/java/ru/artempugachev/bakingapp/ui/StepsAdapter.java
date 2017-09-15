@@ -64,11 +64,11 @@ public final class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsV
 
         @Override
         public void onClick(View v) {
-            stepClickListener.onStepClick();
+            stepClickListener.onStepClick(getAdapterPosition());
         }
     }
 
     public interface StepClickListener {
-        void onStepClick();
+        void onStepClick(int position);
     }
 }
