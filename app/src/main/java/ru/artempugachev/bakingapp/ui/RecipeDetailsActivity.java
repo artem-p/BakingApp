@@ -3,6 +3,7 @@ package ru.artempugachev.bakingapp.ui;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
@@ -10,6 +11,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.artempugachev.bakingapp.R;
 import ru.artempugachev.bakingapp.model.Recipe;
+import ru.artempugachev.bakingapp.ui.recipedetails.StepsAdapter;
 
 public class RecipeDetailsActivity extends AppCompatActivity {
     @BindView(R.id.ingredientsTextView)
@@ -17,6 +19,8 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
     @BindView(R.id.stepsRecycler)
     RecyclerView stepsRecycler;
+
+    private StepsAdapter stepsAdapter;
 
     private Recipe recipe = null;
 
@@ -47,6 +51,12 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
         String ingredientsText = recipe.toIngredientsText();
         ingredientsTextView.setText(ingredientsText);
+
+        LinearLayoutManager stepsLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        stepsRecycler.setLayoutManager(stepsLayoutManager);
+
+        stepsAdapter = new StepsAdapter(recipe.getSteps());
+        stepsRecycler.setAdapter(stepsAdapter);
     }
 
     /**
