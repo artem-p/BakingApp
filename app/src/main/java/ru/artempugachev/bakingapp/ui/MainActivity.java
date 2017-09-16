@@ -20,25 +20,12 @@ public class MainActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<List<Recipe>>, RecipeListLoader.RecipeLoadListener,
         RecipeAdapter.RecipeClickListener {
 
-    private static final int RECIPE_LIST_LOADER_ID = 42;
-    public static final String RECIPE_EXTRA = "recipe";
-    public static final String STEP_EXTRA = "step";
-
-    @BindView(R.id.recipeRecycler)
-    RecyclerView recipeRecyclerView;
-
-    RecipeAdapter recipeAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ButterKnife.bind(this);
-
-        getSupportLoaderManager().initLoader(RECIPE_LIST_LOADER_ID, null, this);
-
-        setUpRecipesRecycler();
     }
 
 
