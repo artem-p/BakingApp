@@ -33,6 +33,9 @@ public final class Step implements Parcelable {
         thumbnailUrl = in.readString();
     }
 
+    public String getDescription() {
+        return description;
+    }
 
     /**
      * Display step as text string. (ex.: 0. Recipe Introduction).

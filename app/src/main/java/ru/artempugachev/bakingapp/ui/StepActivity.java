@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -31,6 +32,9 @@ public class StepActivity extends AppCompatActivity {
 
     @BindView(R.id.stepPlayer)
     SimpleExoPlayerView playerView;
+
+    @BindView(R.id.stepDescription)
+    TextView stepDescription;
 
     private SimpleExoPlayer player;
 
@@ -60,6 +64,7 @@ public class StepActivity extends AppCompatActivity {
     private void fillStepViews(Step step) {
         setTitle(step.getTitle());
         initializePlayer(step.getVideoUrl());
+        stepDescription.setText(step.getDescription());
     }
 
 
