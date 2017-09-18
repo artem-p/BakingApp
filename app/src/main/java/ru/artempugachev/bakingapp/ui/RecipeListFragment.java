@@ -1,12 +1,13 @@
 package ru.artempugachev.bakingapp.ui;
 
 
-import android.app.Fragment;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.app.LoaderManager;
-import android.content.Loader;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,8 +27,6 @@ public class RecipeListFragment extends Fragment implements
         RecipeAdapter.RecipeClickListener {
 
     private static final int RECIPE_LIST_LOADER_ID = 42;
-    public static final String RECIPE_EXTRA = "recipe";
-    public static final String STEP_EXTRA = "step";
 
     @BindView(R.id.recipeRecycler)
     RecyclerView recipeRecyclerView;
@@ -41,8 +40,9 @@ public class RecipeListFragment extends Fragment implements
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        getLoaderManager().initLoader(RECIPE_LIST_LOADER_ID, null, this);
         super.onActivityCreated(savedInstanceState);
+        setUpRecipesRecycler();
+        getLoaderManager().initLoader(RECIPE_LIST_LOADER_ID, null, this);
     }
 
     @Nullable
@@ -50,10 +50,6 @@ public class RecipeListFragment extends Fragment implements
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.recipe_list_fragment, container, false);
         ButterKnife.bind(this, rootView);
-
-
-        setUpRecipesRecycler();
-
 
         return rootView;
     }
@@ -80,6 +76,7 @@ public class RecipeListFragment extends Fragment implements
                 throw new RuntimeException("Loader not implemented: " + id);
         }
     }
+
 
     @Override
     public void onLoadFinished(Loader<List<Recipe>> loader, List<Recipe> recipes) {
@@ -119,7 +116,7 @@ public class RecipeListFragment extends Fragment implements
 
         if (recipe != null) {
             Intent recipeDetailsActivityIntent = new Intent(getActivity(), RecipeDetailsActivity.class);
-            recipeDetailsActivityIntent.putExtra(RECIPE_EXTRA, recipe);
+            recipeDetailsActivityIntent.putExtra(MainActivity.RECIPE_EXTRA, recipe);
             startActivity(recipeDetailsActivityIntent);
         }
     }
