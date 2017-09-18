@@ -1,4 +1,4 @@
-package ru.artempugachev.bakingapp.ui;
+package ru.artempugachev.bakingapp.ui.activity;
 
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
@@ -8,6 +8,7 @@ import android.os.Bundle;
 import butterknife.ButterKnife;
 import ru.artempugachev.bakingapp.R;
 import ru.artempugachev.bakingapp.model.Recipe;
+import ru.artempugachev.bakingapp.ui.fragments.RecipeDetailsFragment;
 
 public class RecipeDetailsActivity extends AppCompatActivity  {
     private Recipe recipe = null;
@@ -17,7 +18,6 @@ public class RecipeDetailsActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
-        ButterKnife.bind(this);
 
         Intent intent = getIntent();
 

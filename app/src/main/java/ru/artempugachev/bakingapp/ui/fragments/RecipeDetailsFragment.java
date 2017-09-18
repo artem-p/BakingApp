@@ -1,4 +1,4 @@
-package ru.artempugachev.bakingapp.ui;
+package ru.artempugachev.bakingapp.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.artempugachev.bakingapp.R;
 import ru.artempugachev.bakingapp.model.Recipe;
+import ru.artempugachev.bakingapp.ui.StepsAdapter;
+import ru.artempugachev.bakingapp.ui.activity.MainActivity;
+import ru.artempugachev.bakingapp.ui.activity.StepActivity;
 
 /**
  * List of ingredients and steps to prepare

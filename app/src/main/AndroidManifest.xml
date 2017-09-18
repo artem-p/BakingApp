@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,14 +23,14 @@
         </activity>
 
         <activity
-            android:name=".ui.RecipeDetailsActivity"
-            android:parentActivityName=".ui.MainActivity"
+            android:name=".ui.activity.RecipeDetailsActivity"
+            android:parentActivityName=".ui.activity.MainActivity"
             android:launchMode="singleTop">
 
         </activity>
 
-        <activity android:name=".ui.StepActivity"
-            android:parentActivityName=".ui.RecipeDetailsActivity"
+        <activity android:name=".ui.activity.StepActivity"
+            android:parentActivityName=".ui.activity.RecipeDetailsActivity"
             android:launchMode="singleTop">
 
         </activity>

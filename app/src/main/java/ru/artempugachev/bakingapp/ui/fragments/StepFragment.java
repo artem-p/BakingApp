@@ -1,15 +1,17 @@
-package ru.artempugachev.bakingapp.ui;
+package ru.artempugachev.bakingapp.ui.fragments;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
+import android.Manifest;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
-import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.LoadControl;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -24,12 +26,14 @@ import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.artempugachev.bakingapp.R;
-import ru.artempugachev.bakingapp.model.Recipe;
 import ru.artempugachev.bakingapp.model.Step;
+import ru.artempugachev.bakingapp.ui.activity.MainActivity;
 
-public class StepActivity extends AppCompatActivity {
-    private Step step = null;
+/**
+ * Step instructions and video
+ */
 
+public class StepFragment extends Fragment{
     @BindView(R.id.stepPlayer)
     SimpleExoPlayerView playerView;
 
@@ -37,22 +41,33 @@ public class StepActivity extends AppCompatActivity {
     TextView stepDescription;
 
     private SimpleExoPlayer player;
+    private Step step = null;
+
+
+    public StepFragment() {
+
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.step_fragment, container, false);
+        ButterKnife.bind(this, rootView);
+
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            step = arguments.getParcelable(MainActivity.STEP_EXTRA);
+        }
+
+        return rootView;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_step);
-        ButterKnife.bind(this);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-        Intent intent = getIntent();
-
-        if (intent != null) {
-            if (intent.hasExtra(MainActivity.STEP_EXTRA)) {
-                Step step = intent.getParcelableExtra(MainActivity.STEP_EXTRA);
-                fillStepViews(step);
-            } else {
-                showNoStepData();
-            }
+        if (step != null) {
+            fillStepViews(step);
         } else {
             showNoStepData();
         }
@@ -62,7 +77,6 @@ public class StepActivity extends AppCompatActivity {
      * Fill views with step data
      * */
     private void fillStepViews(Step step) {
-        setTitle(step.getTitle());
         initializePlayer(step.getVideoUrl());
         stepDescription.setText(step.getDescription());
     }
@@ -74,7 +88,7 @@ public class StepActivity extends AppCompatActivity {
         if (player == null) {
             TrackSelector trackSelector = new DefaultTrackSelector();
             LoadControl loadControl = new DefaultLoadControl();
-            player = ExoPlayerFactory.newSimpleInstance(this, trackSelector, loadControl);
+            player = ExoPlayerFactory.newSimpleInstance(getActivity(), trackSelector, loadControl);
             playerView.setPlayer(player);
 
             // Prepare the MediaSource.
@@ -94,7 +108,7 @@ public class StepActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         releasePlayer();
     }
@@ -112,5 +126,5 @@ public class StepActivity extends AppCompatActivity {
     private void showNoStepData() {
         // todo
     }
-}
 
+}
