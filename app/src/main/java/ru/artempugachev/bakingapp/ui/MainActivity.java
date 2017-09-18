@@ -16,9 +16,7 @@ import ru.artempugachev.bakingapp.R;
 import ru.artempugachev.bakingapp.model.Recipe;
 import ru.artempugachev.bakingapp.network.RecipeListLoader;
 
-public class MainActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<List<Recipe>>, RecipeListLoader.RecipeLoadListener,
-        RecipeAdapter.RecipeClickListener {
+public class MainActivity extends AppCompatActivity {
 
 
     @Override
@@ -26,73 +24,5 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-    }
-
-
-    private void setUpRecipesRecycler() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        recipeRecyclerView.setLayoutManager(layoutManager);
-        recipeRecyclerView.setHasFixedSize(true);
-
-        recipeAdapter = new RecipeAdapter(this);
-        recipeRecyclerView.setAdapter(recipeAdapter);
-    }
-
-
-    /**
-     * Loader Callbacks
-     * */
-    @Override
-    public Loader<List<Recipe>> onCreateLoader(int id, Bundle args) {
-        switch (id) {
-            case RECIPE_LIST_LOADER_ID:
-                return new RecipeListLoader(this, this);
-            default:
-                throw new RuntimeException("Loader not implemented: " + id);
-        }
-    }
-
-    @Override
-    public void onLoadFinished(Loader<List<Recipe>> loader, List<Recipe> recipes) {
-        if (recipes != null && !recipes.isEmpty()) {
-            recipeAdapter.setRecipes(recipes);
-        } else {
-            // todo handle no recipes
-        }
-    }
-
-    @Override
-    public void onLoaderReset(Loader<List<Recipe>> loader) {
-
-    }
-
-
-    /**
-     * Recipe load listener methods. Use it to show/hide progressbar while loading recipe list
-     * */
-    @Override
-    public void onStartLoadingRecipes() {
-
-    }
-
-
-    @Override
-    public void onFinishLoadingRecipes() {
-
-    }
-
-
-    /**
-     * Handle click on recipe card. Show recipe details.
-     * */
-    @Override
-    public void onRecipeClick(int position) {
-        Recipe recipe = recipeAdapter.getRecipe(position);
-
-        if (recipe != null) {
-            Intent recipeDetailsActivityIntent = new Intent(MainActivity.this, RecipeDetailsActivity.class);
-            recipeDetailsActivityIntent.putExtra(RECIPE_EXTRA, recipe);
-            startActivity(recipeDetailsActivityIntent);
-        }
     }
 }
