@@ -127,4 +127,15 @@ public class StepFragment extends Fragment{
         // todo
     }
 
+    /**
+     * Step page title for step navigation view pager
+     * */
+    public String getStepPageTitle() {
+        if (step != null) {
+            return step.getPageTitle();
+        } else {
+            return "";
+        }
+    }
+
 }

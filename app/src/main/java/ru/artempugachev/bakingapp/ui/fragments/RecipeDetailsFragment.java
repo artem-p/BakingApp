@@ -88,7 +88,7 @@ public class RecipeDetailsFragment extends Fragment implements StepsAdapter.Step
     public void onStepClick(int stepPosition) {
         if (recipe != null) {
             Intent intent = new Intent(getActivity(), StepActivity.class);
-            intent.putExtra(MainActivity.STEP_EXTRA, recipe.getStep(stepPosition));
+            intent.putExtra(MainActivity.RECIPE_EXTRA, recipe);
             startActivity(intent);
         }
     }

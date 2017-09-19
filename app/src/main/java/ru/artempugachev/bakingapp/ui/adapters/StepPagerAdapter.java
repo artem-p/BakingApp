@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ru.artempugachev.bakingapp.ui.fragments.StepFragment;
@@ -13,7 +14,7 @@ import ru.artempugachev.bakingapp.ui.fragments.StepFragment;
  */
 
 public class StepPagerAdapter extends FragmentPagerAdapter {
-    private List<StepFragment> stepFragments;
+    private List<StepFragment> stepFragments = new ArrayList<StepFragment>();
 
     public StepPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -34,6 +35,18 @@ public class StepPagerAdapter extends FragmentPagerAdapter {
     }
 
     public void addStepFragment(StepFragment stepFragment) {
-        stepFragments.add(stepFragment);
+        if (stepFragments != null) {
+            stepFragments.add(stepFragment);
+        }
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        if (stepFragments != null && stepFragments.size() > position) {
+            StepFragment stepFragment = stepFragments.get(position);
+            return stepFragment.getStepPageTitle();
+        } else {
+            return null;
+        }
     }
 }

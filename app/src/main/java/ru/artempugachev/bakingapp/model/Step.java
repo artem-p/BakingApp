@@ -80,4 +80,8 @@ public final class Step implements Parcelable {
     public String getVideoUrl() {
         return videoUrl;
     }
+
+    public String getPageTitle() {
+        return "Step " + id;
+    }
 }
