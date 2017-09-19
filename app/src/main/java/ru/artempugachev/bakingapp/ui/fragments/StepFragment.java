@@ -80,8 +80,17 @@ public class StepFragment extends Fragment{
      * Fill views with step data
      * */
     private void fillStepViews(Step step) {
-        initializePlayer(step.getVideoUrl());
+        if (step.getVideoUrl() != null && !step.getVideoUrl().isEmpty()) {
+            initializePlayer(step.getVideoUrl());
+        } else {
+            hidePlayerView();
+        }
+
         stepDescription.setText(step.getDescription());
+    }
+
+    private void hidePlayerView() {
+        playerView.setVisibility(View.INVISIBLE);
     }
 
 
