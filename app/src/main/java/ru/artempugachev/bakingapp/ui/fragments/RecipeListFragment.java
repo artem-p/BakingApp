@@ -2,14 +2,17 @@ package ru.artempugachev.bakingapp.ui.fragments;
 
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,12 +61,25 @@ public class RecipeListFragment extends Fragment implements
     }
 
     private void setUpRecipesRecycler() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), calculateColumnsNumber(getActivity()));
         recipeRecyclerView.setLayoutManager(layoutManager);
         recipeRecyclerView.setHasFixedSize(true);
 
         recipeAdapter = new RecipeAdapter(this);
         recipeRecyclerView.setAdapter(recipeAdapter);
+    }
+
+    /**
+     * Calculates number of columns in grid based on device width
+     * */
+    private int calculateColumnsNumber (Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+
+        // todo for dual pane divide width by the amount of weight allocated to the list
+        float width = displayMetrics.widthPixels / displayMetrics.density;
+        int scalingFactor = 300;
+        int columnsNumber = (int) (width / scalingFactor);
+        return columnsNumber;
     }
 
 
