@@ -15,7 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.artempugachev.bakingapp.R;
 import ru.artempugachev.bakingapp.model.Recipe;
-import ru.artempugachev.bakingapp.ui.StepsAdapter;
+import ru.artempugachev.bakingapp.ui.adapters.StepsAdapter;
 import ru.artempugachev.bakingapp.ui.activity.MainActivity;
 import ru.artempugachev.bakingapp.ui.activity.StepActivity;
 

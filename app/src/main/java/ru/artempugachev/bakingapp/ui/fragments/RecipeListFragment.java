@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 import ru.artempugachev.bakingapp.R;
 import ru.artempugachev.bakingapp.model.Recipe;
 import ru.artempugachev.bakingapp.network.RecipeListLoader;
-import ru.artempugachev.bakingapp.ui.RecipeAdapter;
+import ru.artempugachev.bakingapp.ui.adapters.RecipeAdapter;
 import ru.artempugachev.bakingapp.ui.activity.MainActivity;
 import ru.artempugachev.bakingapp.ui.activity.RecipeDetailsActivity;
 
