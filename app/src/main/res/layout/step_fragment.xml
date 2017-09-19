@@ -14,11 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"/>
 
-    <android.support.v7.widget.CardView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:contentPadding="@dimen/step_card_padding"
-        android:layout_margin="@dimen/step_card_margin"
+        android:padding="@dimen/step_description_padding"
+        android:layout_margin="@dimen/step_description_margin"
         >
 
         <TextView
@@ -27,5 +27,5 @@
             android:id="@+id/stepDescription"
             android:textSize="18sp"
             />
-    </android.support.v7.widget.CardView>
+    </ScrollView>
 </LinearLayout>
