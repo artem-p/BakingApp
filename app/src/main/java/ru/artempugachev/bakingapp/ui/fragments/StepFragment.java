@@ -1,6 +1,6 @@
 package ru.artempugachev.bakingapp.ui.fragments;
 
-import android.Manifest;
+import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -62,21 +62,19 @@ public class StepFragment extends Fragment{
         return rootView;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         if (step != null) {
             fillStepViews(step);
         } else {
             showNoStepData();
         }
+
     }
+
 
     /**
      * Fill views with step data
@@ -90,7 +88,7 @@ public class StepFragment extends Fragment{
     private void initializePlayer(String videoUrl) {
         playerView.setDefaultArtwork(BitmapFactory.decodeResource(getResources(), R.drawable.baking_placeholder));
 
-        if (player == null) {
+//        if (player == null) {
             TrackSelector trackSelector = new DefaultTrackSelector();
             LoadControl loadControl = new DefaultLoadControl();
             player = ExoPlayerFactory.newSimpleInstance(getActivity(), trackSelector, loadControl);
@@ -103,7 +101,7 @@ public class StepFragment extends Fragment{
             player.prepare(mediaSource, true, false);
 
             player.setPlayWhenReady(false);
-        }
+//        }
     }
 
     private MediaSource buildMediaSource(Uri uri) {
@@ -112,12 +110,12 @@ public class StepFragment extends Fragment{
                 new DefaultExtractorsFactory(), null, null);
     }
 
+
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onPause() {
+        super.onPause();
         releasePlayer();
     }
-
 
     private void releasePlayer() {
         player.stop();
