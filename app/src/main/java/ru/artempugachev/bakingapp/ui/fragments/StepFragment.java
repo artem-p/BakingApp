@@ -63,6 +63,11 @@ public class StepFragment extends Fragment{
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
@@ -126,16 +131,4 @@ public class StepFragment extends Fragment{
     private void showNoStepData() {
         // todo
     }
-
-    /**
-     * Step page title for step navigation view pager
-     * */
-    public String getStepPageTitle() {
-        if (step != null) {
-            return step.getPageTitle();
-        } else {
-            return "";
-        }
-    }
-
 }

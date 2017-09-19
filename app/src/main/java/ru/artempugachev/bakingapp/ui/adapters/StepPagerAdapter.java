@@ -15,6 +15,7 @@ import ru.artempugachev.bakingapp.ui.fragments.StepFragment;
 
 public class StepPagerAdapter extends FragmentPagerAdapter {
     private List<StepFragment> stepFragments = new ArrayList<StepFragment>();
+    private List<String> stepPageTitles = new ArrayList<String>();
 
     public StepPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -34,17 +35,17 @@ public class StepPagerAdapter extends FragmentPagerAdapter {
        return !stepFragments.isEmpty() ? stepFragments.size() : 0;
     }
 
-    public void addStepFragment(StepFragment stepFragment) {
+    public void addStepFragment(StepFragment stepFragment, String stepPageTitle) {
         if (stepFragments != null) {
             stepFragments.add(stepFragment);
+            stepPageTitles.add(stepPageTitle);
         }
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        if (stepFragments != null && stepFragments.size() > position) {
-            StepFragment stepFragment = stepFragments.get(position);
-            return stepFragment.getStepPageTitle();
+        if (stepPageTitles != null && stepPageTitles.size() > position) {
+            return stepPageTitles.get(position);
         } else {
             return null;
         }

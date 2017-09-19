@@ -57,7 +57,7 @@ public class StepActivity extends AppCompatActivity {
             arguments.putParcelable(MainActivity.STEP_EXTRA, step);
             stepFragment.setArguments(arguments);
 
-            stepPagerAdapter.addStepFragment(stepFragment);
+            stepPagerAdapter.addStepFragment(stepFragment, step.getPageTitle());
         }
 //
 //        fm.beginTransaction()

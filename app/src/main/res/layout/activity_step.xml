@@ -9,7 +9,7 @@
         android:id="@+id/step_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="fixed"
+        app:tabMode="scrollable"
         app:tabGravity="fill"/>
 
     <FrameLayout

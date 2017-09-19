@@ -81,6 +81,9 @@ public final class Step implements Parcelable {
         return videoUrl;
     }
 
+    /**
+     * Step page title for step navigation view pager
+     * */
     public String getPageTitle() {
         return "Step " + id;
     }
