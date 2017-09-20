@@ -19,6 +19,8 @@ import ru.artempugachev.bakingapp.ui.activity.MainActivity;
 import ru.artempugachev.bakingapp.ui.adapters.StepPagerAdapter;
 import ru.artempugachev.bakingapp.ui.fragments.StepFragment;
 
+import java.util.List;
+
 public class StepActivity extends AppCompatActivity {
     private Step step = null;
     @BindView(R.id.step_pager)
@@ -45,8 +47,8 @@ public class StepActivity extends AppCompatActivity {
         }
     }
 
-    private void setUpViewPager(Recipe recipe) {
-        StepPagerAdapter stepPagerAdapter = new StepPagerAdapter(getSupportFragmentManager());
+    private void setUpViewPager(final Recipe recipe) {
+        final StepPagerAdapter stepPagerAdapter = new StepPagerAdapter(getSupportFragmentManager());
 
         FragmentManager fm = getSupportFragmentManager();
 
@@ -68,6 +70,30 @@ public class StepActivity extends AppCompatActivity {
 
         stepPager.setAdapter(stepPagerAdapter);
         stepTabs.setupWithViewPager(stepPager);
+
+
+        // set fragment name in action bar title
+        stepPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                List<Step> steps = recipe.getSteps();
+
+                if (steps != null && steps.size() > position) {
+                    String actionBarTitle = steps.get(position).getTitle();
+                    getSupportActionBar().setTitle(actionBarTitle);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 }
 
