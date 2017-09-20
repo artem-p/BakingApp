@@ -23,7 +23,12 @@ public class RecipeDetailsActivity extends AppCompatActivity  {
         isTwoPane = findViewById(R.id.two_pane_recipe_layout) != null;
 
         fillRecipeViews();
+
+        if (isTwoPane) {
+            fillStepViews();
+        }
     }
+
 
     private void fillRecipeViews() {
         Intent intent = getIntent();
@@ -46,6 +51,11 @@ public class RecipeDetailsActivity extends AppCompatActivity  {
         if (recipe != null) {
             setTitle(recipe.getName());
         }
+
+    }
+
+
+    private void fillStepViews() {
 
     }
 }
