@@ -43,7 +43,16 @@ public class StepActivity extends AppCompatActivity {
                 Recipe recipe = intent.getParcelableExtra(MainActivity.RECIPE_EXTRA);
 
                 setUpViewPager(recipe);
+
+                setCurrentStep(intent);
             }
+        }
+    }
+
+    private void setCurrentStep(Intent intent) {
+        if (intent.hasExtra(MainActivity.CURRENT_STEP_ID_EXTRA)) {
+            int stepId = intent.getIntExtra(MainActivity.CURRENT_STEP_ID_EXTRA, 0);
+            stepPager.setCurrentItem(stepId);
         }
     }
 
