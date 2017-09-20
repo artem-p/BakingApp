@@ -9,10 +9,11 @@ import butterknife.ButterKnife;
 import ru.artempugachev.bakingapp.R;
 import ru.artempugachev.bakingapp.model.Recipe;
 import ru.artempugachev.bakingapp.model.Step;
+import ru.artempugachev.bakingapp.ui.adapters.StepsAdapter;
 import ru.artempugachev.bakingapp.ui.fragments.RecipeDetailsFragment;
 import ru.artempugachev.bakingapp.ui.fragments.StepFragment;
 
-public class RecipeDetailsActivity extends AppCompatActivity  {
+public class RecipeDetailsActivity extends AppCompatActivity implements StepsAdapter.StepClickListener {
     private Recipe recipe = null;
     private boolean isTwoPane;
 
@@ -27,7 +28,7 @@ public class RecipeDetailsActivity extends AppCompatActivity  {
         fillRecipeViews();
 
         if (isTwoPane) {
-            fillStepViews();
+            addStepFragment(0);
         }
     }
 
@@ -57,8 +58,8 @@ public class RecipeDetailsActivity extends AppCompatActivity  {
     }
 
 
-    private void fillStepViews() {
-        Step step = recipe.getStep(0);
+    private void addStepFragment(int stepId) {
+        Step step = recipe.getStep(stepId);
         StepFragment stepFragment = new StepFragment();
         Bundle arguments = new Bundle();
 
@@ -67,7 +68,26 @@ public class RecipeDetailsActivity extends AppCompatActivity  {
 
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction()
-                .add(R.id.step_fragment_container, stepFragment)
+                .replace(R.id.step_fragment_container, stepFragment)
+                .addToBackStack(null)
                 .commit();
+    }
+
+    /**
+     * Handle click on step. Show step details.
+     * */
+    @Override
+    public void onStepClick(int stepPosition) {
+        if (isTwoPane) {
+            addStepFragment(stepPosition);
+        } else {
+            if (recipe != null) {
+                Intent intent = new Intent(RecipeDetailsActivity.this, StepActivity.class);
+                intent.putExtra(MainActivity.RECIPE_EXTRA, recipe);
+                intent.putExtra(MainActivity.CURRENT_STEP_ID_EXTRA, stepPosition);
+                startActivity(intent);
+            }
+        }
+
     }
 }

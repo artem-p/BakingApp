@@ -23,7 +23,7 @@ import ru.artempugachev.bakingapp.ui.activity.StepActivity;
  * List of ingredients and steps to prepare
  */
 
-public class RecipeDetailsFragment extends Fragment implements StepsAdapter.StepClickListener {
+public class RecipeDetailsFragment extends Fragment {
     @BindView(R.id.ingredientsTextView)
     TextView ingredientsTextView;
 
@@ -58,7 +58,6 @@ public class RecipeDetailsFragment extends Fragment implements StepsAdapter.Step
         return rootView;
     }
 
-
     /**
      * Fill recipe views with data
      * */
@@ -69,7 +68,7 @@ public class RecipeDetailsFragment extends Fragment implements StepsAdapter.Step
         LinearLayoutManager stepsLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         stepsRecycler.setLayoutManager(stepsLayoutManager);
 
-        stepsAdapter = new StepsAdapter(recipe.getSteps(), this);
+        stepsAdapter = new StepsAdapter(recipe.getSteps(), (StepsAdapter.StepClickListener) getActivity());
         stepsRecycler.setAdapter(stepsAdapter);
     }
 
@@ -78,19 +77,5 @@ public class RecipeDetailsFragment extends Fragment implements StepsAdapter.Step
      * */
     public void showNoRecipe() {
 
-    }
-
-
-    /**
-     * Handle click on step. Show step details.
-     * */
-    @Override
-    public void onStepClick(int stepPosition) {
-        if (recipe != null) {
-            Intent intent = new Intent(getActivity(), StepActivity.class);
-            intent.putExtra(MainActivity.RECIPE_EXTRA, recipe);
-            intent.putExtra(MainActivity.CURRENT_STEP_ID_EXTRA, stepPosition);
-            startActivity(intent);
-        }
     }
 }

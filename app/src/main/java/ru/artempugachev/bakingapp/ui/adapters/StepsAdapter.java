@@ -21,6 +21,7 @@ import ru.artempugachev.bakingapp.model.Step;
 public final class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHolder> {
     private List<Step> steps;
     private StepClickListener stepClickListener;
+    private int selectedPosition;
 
     public StepsAdapter(List<Step> steps, StepClickListener stepClickListener) {
         this.steps = steps;
@@ -43,6 +44,8 @@ public final class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsV
         if (steps != null && !steps.isEmpty()) {
             Step step = steps.get(position);
             holder.stepTitle.setText(step.asText());
+
+            holder.itemView.setSelected(selectedPosition == position);
         }
     }
 
@@ -65,6 +68,10 @@ public final class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsV
         @Override
         public void onClick(View v) {
             stepClickListener.onStepClick(getAdapterPosition());
+
+            notifyItemChanged(selectedPosition);
+            selectedPosition = getLayoutPosition();
+            notifyItemChanged(selectedPosition);
         }
     }
 
