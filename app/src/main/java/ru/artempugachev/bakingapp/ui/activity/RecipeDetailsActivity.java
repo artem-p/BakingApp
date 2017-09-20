@@ -8,7 +8,9 @@ import android.os.Bundle;
 import butterknife.ButterKnife;
 import ru.artempugachev.bakingapp.R;
 import ru.artempugachev.bakingapp.model.Recipe;
+import ru.artempugachev.bakingapp.model.Step;
 import ru.artempugachev.bakingapp.ui.fragments.RecipeDetailsFragment;
+import ru.artempugachev.bakingapp.ui.fragments.StepFragment;
 
 public class RecipeDetailsActivity extends AppCompatActivity  {
     private Recipe recipe = null;
@@ -56,6 +58,16 @@ public class RecipeDetailsActivity extends AppCompatActivity  {
 
 
     private void fillStepViews() {
+        Step step = recipe.getStep(0);
+        StepFragment stepFragment = new StepFragment();
+        Bundle arguments = new Bundle();
 
+        arguments.putParcelable(MainActivity.STEP_EXTRA, step);
+        stepFragment.setArguments(arguments);
+
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction()
+                .add(R.id.step_fragment_container, stepFragment)
+                .commit();
     }
 }
