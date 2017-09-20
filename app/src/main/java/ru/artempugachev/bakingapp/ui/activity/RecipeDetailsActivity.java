@@ -12,13 +12,20 @@ import ru.artempugachev.bakingapp.ui.fragments.RecipeDetailsFragment;
 
 public class RecipeDetailsActivity extends AppCompatActivity  {
     private Recipe recipe = null;
-
+    private boolean isTwoPane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
 
+        // check two pane mode
+        isTwoPane = findViewById(R.id.two_pane_recipe_layout) != null;
+
+        fillRecipeViews();
+    }
+
+    private void fillRecipeViews() {
         Intent intent = getIntent();
 
         if (intent != null && intent.hasExtra(MainActivity.RECIPE_EXTRA)) {
@@ -39,5 +46,6 @@ public class RecipeDetailsActivity extends AppCompatActivity  {
         if (recipe != null) {
             setTitle(recipe.getName());
         }
+
     }
 }

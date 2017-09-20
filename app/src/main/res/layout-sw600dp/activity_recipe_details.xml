@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Two pane layout for tablets -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/two_pane_recipe_layout"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Recipe details -->
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/recipe_details_fragment_container"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+
+    <!-- Divider -->
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray"
+        />
+
+    <!-- Step details -->
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/step_fragment_container"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+</LinearLayout>
