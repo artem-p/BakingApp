@@ -80,9 +80,8 @@ public class StepActivity extends AppCompatActivity {
         stepPager.setAdapter(stepPagerAdapter);
         stepTabs.setupWithViewPager(stepPager);
 
-
         // set fragment name in action bar title
-        stepPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -102,7 +101,10 @@ public class StepActivity extends AppCompatActivity {
             public void onPageScrollStateChanged(int state) {
 
             }
-        });
+        };
+
+        stepPager.addOnPageChangeListener(onPageChangeListener);
+        onPageChangeListener.onPageSelected(0);
     }
 }
 
