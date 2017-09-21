@@ -25,7 +25,15 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        super.onReceive(context, intent);
+        if (intent.hasExtra(WIDGET_IDS_EXTRA)) {
+            int[] ids = intent.getExtras().getIntArray(WIDGET_IDS_EXTRA);
+            if (intent.hasExtra(INGREDIENTS_TEXT_EXTRA)) {
+                String ingredientsList = intent.getStringExtra(INGREDIENTS_TEXT_EXTRA);
+                update(context, AppWidgetManager.getInstance(context), ids, ingredientsList);
+            } else {
+                onUpdate(context, AppWidgetManager.getInstance(context), ids);
+            }
+        } else super.onReceive(context, intent);
     }
 
 
