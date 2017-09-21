@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -83,16 +84,21 @@ public class StepFragment extends Fragment{
         int orientation = getResources().getConfiguration().orientation;
 
         if (orientation == Configuration.ORIENTATION_LANDSCAPE && !isTwoPane) {
-            // in landscape mode video should be fullscreened
+            // in landscape mode video should be fullscreen
             showFullscreenVideo();
         }
     }
 
     private void showFullscreenVideo() {
+        // Hide status bar and set fullscreen mode
         View decorView = getActivity().getWindow().getDecorView();
-        // Hide the status bar.
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
 
         // hide action bar
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
@@ -100,8 +106,15 @@ public class StepFragment extends Fragment{
             actionBar.hide();
         }
 
-//        exoPlayer.getLayoutParams().height = LayoutParams.MATCH_PARENT;
-//        exoPlayer.getLayoutParams().width = LayoutParams.MATCH_PARENT;
+        // hide step tabs
+        TabLayout stepTabs = (TabLayout) getActivity().findViewById(R.id.step_tabs);
+        if (stepTabs != null) {
+            stepTabs.setVisibility(View.GONE);
+        }
+
+        // expand player view to fullscreen
+        playerView.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
+        playerView.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
     }
 
 
