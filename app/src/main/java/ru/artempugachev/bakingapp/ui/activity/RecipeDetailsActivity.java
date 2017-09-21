@@ -64,6 +64,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepsAda
         Bundle arguments = new Bundle();
 
         arguments.putParcelable(MainActivity.STEP_EXTRA, step);
+        arguments.putBoolean(MainActivity.IS_TWO_PANE_EXTRA, isTwoPane);
         stepFragment.setArguments(arguments);
 
         FragmentManager fm = getSupportFragmentManager();

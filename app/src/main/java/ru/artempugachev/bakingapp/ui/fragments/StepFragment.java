@@ -1,14 +1,19 @@
 package ru.artempugachev.bakingapp.ui.fragments;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -42,6 +47,7 @@ public class StepFragment extends Fragment{
 
     private SimpleExoPlayer player;
     private Step step = null;
+    private boolean isTwoPane;
 
 
     public StepFragment() {
@@ -57,6 +63,7 @@ public class StepFragment extends Fragment{
         Bundle arguments = getArguments();
         if (arguments != null) {
             step = arguments.getParcelable(MainActivity.STEP_EXTRA);
+            isTwoPane = arguments.getBoolean(MainActivity.IS_TWO_PANE_EXTRA);
         }
 
         return rootView;
@@ -73,6 +80,28 @@ public class StepFragment extends Fragment{
             showNoStepData();
         }
 
+        int orientation = getResources().getConfiguration().orientation;
+
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE && !isTwoPane) {
+            // in landscape mode video should be fullscreened
+            showFullscreenVideo();
+        }
+    }
+
+    private void showFullscreenVideo() {
+        View decorView = getActivity().getWindow().getDecorView();
+        // Hide the status bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+
+        // hide action bar
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
+
+//        exoPlayer.getLayoutParams().height = LayoutParams.MATCH_PARENT;
+//        exoPlayer.getLayoutParams().width = LayoutParams.MATCH_PARENT;
     }
 
 
@@ -98,18 +127,18 @@ public class StepFragment extends Fragment{
         playerView.setDefaultArtwork(BitmapFactory.decodeResource(getResources(), R.drawable.baking_placeholder));
 
 //        if (player == null) {
-            TrackSelector trackSelector = new DefaultTrackSelector();
-            LoadControl loadControl = new DefaultLoadControl();
-            player = ExoPlayerFactory.newSimpleInstance(getActivity(), trackSelector, loadControl);
-            playerView.setPlayer(player);
+        TrackSelector trackSelector = new DefaultTrackSelector();
+        LoadControl loadControl = new DefaultLoadControl();
+        player = ExoPlayerFactory.newSimpleInstance(getActivity(), trackSelector, loadControl);
+        playerView.setPlayer(player);
 
-            // Prepare the MediaSource.
+        // Prepare the MediaSource.
 
-            Uri uri = Uri.parse(videoUrl);
-            MediaSource mediaSource = buildMediaSource(uri);
-            player.prepare(mediaSource, true, false);
+        Uri uri = Uri.parse(videoUrl);
+        MediaSource mediaSource = buildMediaSource(uri);
+        player.prepare(mediaSource, true, false);
 
-            player.setPlayWhenReady(false);
+        player.setPlayWhenReady(false);
 //        }
     }
 

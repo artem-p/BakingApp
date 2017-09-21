@@ -66,6 +66,7 @@ public class StepActivity extends AppCompatActivity {
             Bundle arguments = new Bundle();
 
             arguments.putParcelable(MainActivity.STEP_EXTRA, step);
+            arguments.putBoolean(MainActivity.IS_TWO_PANE_EXTRA, false);    // this activity cannot be in two-pane layout
             stepFragment.setArguments(arguments);
 
             stepPagerAdapter.addStepFragment(stepFragment, step.getPageTitle());
