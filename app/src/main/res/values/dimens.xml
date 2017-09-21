@@ -11,4 +11,5 @@
     <dimen name="step_list_card_margin">16dp</dimen>
     <dimen name="step_description_padding">16dp</dimen>
     <dimen name="step_description_margin">8dp</dimen>
+    <dimen name="ingredients_widget_padding">8dp</dimen>
 </resources>

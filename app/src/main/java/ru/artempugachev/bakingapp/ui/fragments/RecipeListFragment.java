@@ -2,6 +2,8 @@ package ru.artempugachev.bakingapp.ui.fragments;
 
 
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RemoteViews;
 
 import java.util.List;
 
@@ -27,6 +30,7 @@ import ru.artempugachev.bakingapp.network.RecipeListLoader;
 import ru.artempugachev.bakingapp.ui.adapters.RecipeAdapter;
 import ru.artempugachev.bakingapp.ui.activity.MainActivity;
 import ru.artempugachev.bakingapp.ui.activity.RecipeDetailsActivity;
+import ru.artempugachev.bakingapp.ui.widget.IngredientsWidgetProvider;
 
 public class RecipeListFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<List<Recipe>>, RecipeListLoader.RecipeLoadListener,
@@ -134,6 +138,13 @@ public class RecipeListFragment extends Fragment implements
         Recipe recipe = recipeAdapter.getRecipe(position);
 
         if (recipe != null) {
+            // update ingredients list in widget
+            ComponentName ingredientsWidget = new ComponentName( getContext(), IngredientsWidgetProvider.class);
+            RemoteViews remoteViews = new RemoteViews(getContext().getPackageName(), R.layout.ingredients_widget);
+            remoteViews.setTextViewText(R.id.ingredientsTextView, recipe.toIngredientsText());
+            AppWidgetManager.getInstance( getContext() ).updateAppWidget( ingredientsWidget, remoteViews );
+
+            // start recipe details activity
             Intent recipeDetailsActivityIntent = new Intent(getActivity(), RecipeDetailsActivity.class);
             recipeDetailsActivityIntent.putExtra(MainActivity.RECIPE_EXTRA, recipe);
             startActivity(recipeDetailsActivityIntent);
