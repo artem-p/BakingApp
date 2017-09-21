@@ -26,19 +26,19 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.hasExtra(WIDGET_IDS_EXTRA)) {
-            int[] ids = intent.getExtras().getIntArray(WIDGET_IDS_EXTRA);
+            int[] widgetIds = intent.getExtras().getIntArray(WIDGET_IDS_EXTRA);
             if (intent.hasExtra(INGREDIENTS_TEXT_EXTRA)) {
                 String ingredientsList = intent.getStringExtra(INGREDIENTS_TEXT_EXTRA);
-                update(context, AppWidgetManager.getInstance(context), ids, ingredientsList);
+                update(context, AppWidgetManager.getInstance(context), widgetIds, ingredientsList);
             } else {
-                onUpdate(context, AppWidgetManager.getInstance(context), ids);
+                onUpdate(context, AppWidgetManager.getInstance(context), widgetIds);
             }
         } else super.onReceive(context, intent);
     }
 
 
-    private void update(Context context, AppWidgetManager appWidgetManager, int[] ids, String ingredients) {
-        for (int widgetId : ids) {
+    private void update(Context context, AppWidgetManager appWidgetManager, int[] widgetIds, String ingredients) {
+        for (int widgetId : widgetIds) {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget);
             views.setTextViewText(R.id.ingredients_widget_list, ingredients);
             appWidgetManager.updateAppWidget(widgetId, views);

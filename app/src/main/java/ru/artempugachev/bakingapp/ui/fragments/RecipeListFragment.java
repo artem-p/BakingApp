@@ -139,10 +139,13 @@ public class RecipeListFragment extends Fragment implements
 
         if (recipe != null) {
             // update ingredients list in widget
-            ComponentName ingredientsWidget = new ComponentName( getContext(), IngredientsWidgetProvider.class);
-            RemoteViews remoteViews = new RemoteViews(getContext().getPackageName(), R.layout.ingredients_widget);
-            remoteViews.setTextViewText(R.id.ingredientsTextView, recipe.toIngredientsText());
-            AppWidgetManager.getInstance( getContext() ).updateAppWidget( ingredientsWidget, remoteViews );
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getContext());
+            int[] widgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(getContext(), IngredientsWidgetProvider.class));
+            Intent updateIntent = new Intent();
+            updateIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+            updateIntent.putExtra(IngredientsWidgetProvider.WIDGET_IDS_EXTRA, widgetIds);
+            updateIntent.putExtra(IngredientsWidgetProvider.INGREDIENTS_TEXT_EXTRA, recipe.toIngredientsText());
+            getContext().sendBroadcast(updateIntent);
 
             // start recipe details activity
             Intent recipeDetailsActivityIntent = new Intent(getActivity(), RecipeDetailsActivity.class);
