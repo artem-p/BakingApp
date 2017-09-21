@@ -83,7 +83,8 @@ public class StepFragment extends Fragment{
 
         int orientation = getResources().getConfiguration().orientation;
 
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE && !isTwoPane) {
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE && !isTwoPane
+                && !step.getVideoUrl().isEmpty()) {
             // in landscape mode video should be fullscreen
             showFullscreenVideo();
         }
