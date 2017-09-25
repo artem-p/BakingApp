@@ -141,11 +141,17 @@ public class RecipeListFragment extends Fragment implements
             // update ingredients list in widget
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getContext());
             int[] widgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(getContext(), IngredientsWidgetProvider.class));
-            Intent updateIntent = new Intent();
-            updateIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-            updateIntent.putExtra(IngredientsWidgetProvider.WIDGET_IDS_EXTRA, widgetIds);
-            updateIntent.putExtra(IngredientsWidgetProvider.INGREDIENTS_TEXT_EXTRA, recipe.toIngredientsText());
-            getContext().sendBroadcast(updateIntent);
+            Intent updateWidgetIntent = new Intent();
+            updateWidgetIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+            updateWidgetIntent.putExtra(IngredientsWidgetProvider.WIDGET_IDS_EXTRA, widgetIds);
+            updateWidgetIntent.putExtra(IngredientsWidgetProvider.INGREDIENTS_TEXT_EXTRA, recipe.toIngredientsText());
+
+            // tried this, but still delay in receive
+            // https://stackoverflow.com/questions/44516173/broadcasts-are-delayed
+            updateWidgetIntent.setFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+
+
+            getContext().sendBroadcast(updateWidgetIntent);
 
             // start recipe details activity
             Intent recipeDetailsActivityIntent = new Intent(getActivity(), RecipeDetailsActivity.class);
