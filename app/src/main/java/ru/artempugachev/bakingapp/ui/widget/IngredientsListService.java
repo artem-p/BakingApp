@@ -48,10 +48,18 @@ class IngredientsListViewFactory implements RemoteViewsService.RemoteViewsFactor
 
     @Override
     public RemoteViews getViewAt(int position) {
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget_list_item);
-        remoteViews.setTextViewText(R.id.ingredients_widget_list_item_text, String.valueOf(position));
+        if (position == 0) {
+            // First element is recipe name
+            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget_list_item);
+            remoteViews.setTextViewText(R.id.ingredients_widget_list_item_text, String.valueOf(position));
 
-        return remoteViews;
+            return remoteViews;
+        } else {
+            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget_list_header);
+            remoteViews.setTextViewText(R.id.ingredients_widget_list_header, "Recipe name");
+
+            return remoteViews;
+        }
     }
 
     @Override
