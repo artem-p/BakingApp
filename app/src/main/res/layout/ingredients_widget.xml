@@ -6,10 +6,33 @@
     android:padding="@dimen/ingredients_widget_padding"
     >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <!-- Recipe header -->
+        <TextView
+            android:id="@+id/ingredients_widget_recipe_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!-- Ingredients -->
+        <ListView
+            android:id="@+id/ingredients_widget_ingredients_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </ListView>
+    </LinearLayout>
+
+    <!-- Message to choose recipe in app -->
     <TextView
-        android:id="@+id/ingredients_widget_list"
+        android:id="@+id/ingredients_widge_choose_recipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
+        android:text="@string/ingredients_widget_default_text"
         />
 </FrameLayout>
