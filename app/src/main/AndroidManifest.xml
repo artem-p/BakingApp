@@ -42,6 +42,9 @@
             <meta-data android:name="android.appwidget.provider"
                 android:resource="@xml/ingredients_widget_info" />
         </receiver>
+
+        <service android:name=".ui.widget.IngredientsListService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>
