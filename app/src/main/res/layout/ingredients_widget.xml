@@ -29,7 +29,7 @@
 
     <!-- Message to choose recipe in app -->
     <TextView
-        android:id="@+id/ingredients_widge_choose_recipe"
+        android:id="@+id/ingredients_widget_choose_recipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
