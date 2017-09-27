@@ -9,5 +9,6 @@
         android:id="@+id/ingredients_widget_list_item_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
         />
 </FrameLayout>

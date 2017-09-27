@@ -69,9 +69,10 @@ public final class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsV
         public void onClick(View v) {
             stepClickListener.onStepClick(getAdapterPosition());
 
-            notifyItemChanged(selectedPosition);
+            // highlight element in recycler
+            notifyItemChanged(selectedPosition);    // remove previous highlight
             selectedPosition = getLayoutPosition();
-            notifyItemChanged(selectedPosition);
+            notifyItemChanged(selectedPosition);    // highligh current
         }
     }
 

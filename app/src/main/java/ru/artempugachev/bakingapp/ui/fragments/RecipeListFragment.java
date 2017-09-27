@@ -146,12 +146,14 @@ public class RecipeListFragment extends Fragment implements
             updateWidgetIntent.putExtra(IngredientsWidgetProvider.WIDGET_IDS_EXTRA, widgetIds);
             updateWidgetIntent.putExtra(IngredientsWidgetProvider.INGREDIENTS_TEXT_EXTRA, recipe.toIngredientsText());
 
-            // tried this, but still delay in receive
+            updateWidgetIntent.setComponent(new ComponentName(getContext(), IngredientsWidgetProvider.class));
+
+            // todo tried this, but still delay in receive
             // https://stackoverflow.com/questions/44516173/broadcasts-are-delayed
             updateWidgetIntent.setFlags(Intent.FLAG_RECEIVER_FOREGROUND);
 
-
             getContext().sendBroadcast(updateWidgetIntent);
+
 
             // start recipe details activity
             Intent recipeDetailsActivityIntent = new Intent(getActivity(), RecipeDetailsActivity.class);

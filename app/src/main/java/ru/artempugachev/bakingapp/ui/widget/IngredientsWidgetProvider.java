@@ -2,6 +2,7 @@ package ru.artempugachev.bakingapp.ui.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
@@ -13,6 +14,9 @@ import ru.artempugachev.bakingapp.R;
  */
 
 public class IngredientsWidgetProvider extends AppWidgetProvider {
+    public static final String WIDGET_IDS_EXTRA = "widget_ids";
+    public static final String INGREDIENTS_TEXT_EXTRA = "ingredients_text";
+
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for (int widgetId : appWidgetIds) {
@@ -22,9 +26,23 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
             appWidgetManager.updateAppWidget(widgetId, views);
         }
     }
-    //    public static final String WIDGET_IDS_EXTRA = "widget_ids";
-//    public static final String INGREDIENTS_TEXT_EXTRA = "ingredients_text";
-//
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+
+
+        final String action = intent.getAction();
+        if (action.equals(AppWidgetManager.ACTION_APPWIDGET_UPDATE)) {
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+            ComponentName componentName = new ComponentName(context, IngredientsWidgetProvider.class);
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetManager.getAppWidgetIds(componentName),
+                    R.id.ingredients_widget_ingredients_list);
+        }
+
+        super.onReceive(context, intent);
+    }
+
+    //
 //
 //    @Override
 //    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] widgetIds) {

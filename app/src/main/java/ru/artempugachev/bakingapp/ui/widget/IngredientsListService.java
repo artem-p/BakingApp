@@ -23,7 +23,7 @@ class IngredientsListViewFactory implements RemoteViewsService.RemoteViewsFactor
     private Context context;
 
     public IngredientsListViewFactory(Context applicationContext, Intent intent) {
-        this.context = context;
+        this.context = applicationContext;
     }
 
     @Override
@@ -48,18 +48,18 @@ class IngredientsListViewFactory implements RemoteViewsService.RemoteViewsFactor
 
     @Override
     public RemoteViews getViewAt(int position) {
+        RemoteViews remoteViews;
+
         if (position == 0) {
             // First element is recipe name
-            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget_list_item);
-            remoteViews.setTextViewText(R.id.ingredients_widget_list_item_text, String.valueOf(position));
-
-            return remoteViews;
-        } else {
-            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget_list_header);
+            remoteViews = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget_list_header);
             remoteViews.setTextViewText(R.id.ingredients_widget_list_header, "Recipe name");
-
-            return remoteViews;
+        } else {
+            remoteViews = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget_list_item);
+            remoteViews.setTextViewText(R.id.ingredients_widget_list_item_text, "elem");
         }
+
+        return remoteViews;
     }
 
     @Override
@@ -69,7 +69,7 @@ class IngredientsListViewFactory implements RemoteViewsService.RemoteViewsFactor
 
     @Override
     public int getViewTypeCount() {
-        return 1;
+        return 2;
     }
 
     @Override
@@ -79,6 +79,6 @@ class IngredientsListViewFactory implements RemoteViewsService.RemoteViewsFactor
 
     @Override
     public boolean hasStableIds() {
-        return false;
+        return true;
     }
 }
