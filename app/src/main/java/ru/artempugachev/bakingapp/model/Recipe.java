@@ -103,4 +103,8 @@ public final class Recipe implements Parcelable {
     public List<Step> getSteps() {
         return steps;
     }
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
 }
