@@ -2,10 +2,16 @@ package ru.artempugachev.bakingapp.ui.widget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.google.gson.Gson;
+
 import ru.artempugachev.bakingapp.R;
+import ru.artempugachev.bakingapp.model.Recipe;
+import ru.artempugachev.bakingapp.ui.activity.MainActivity;
 
 /**
  * Remote views service to display ingredients list.
@@ -21,6 +27,7 @@ public class IngredientsListService extends RemoteViewsService {
 
 class IngredientsListViewFactory implements RemoteViewsService.RemoteViewsFactory {
     private Context context;
+    private Recipe recipe;
 
     public IngredientsListViewFactory(Context applicationContext, Intent intent) {
         this.context = applicationContext;
@@ -33,7 +40,14 @@ class IngredientsListViewFactory implements RemoteViewsService.RemoteViewsFactor
 
     @Override
     public void onDataSetChanged() {
-
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String recipeJson = sharedPreferences.getString(MainActivity.RECIPE_EXTRA, "");
+        if (recipeJson.isEmpty()) {
+            recipe = null;
+        } else {
+            Gson gson = new Gson();
+            recipe = gson.fromJson(recipeJson, Recipe.class);
+        }
     }
 
     @Override

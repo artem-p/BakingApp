@@ -6,7 +6,9 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -19,6 +21,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RemoteViews;
+
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -137,23 +143,10 @@ public class RecipeListFragment extends Fragment implements
     public void onRecipeClick(int position) {
         Recipe recipe = recipeAdapter.getRecipe(position);
 
+
         if (recipe != null) {
-            // update ingredients list in widget
-            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getContext());
-            int[] widgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(getContext(), IngredientsWidgetProvider.class));
-            Intent updateWidgetIntent = new Intent();
-            updateWidgetIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-            updateWidgetIntent.putExtra(IngredientsWidgetProvider.WIDGET_IDS_EXTRA, widgetIds);
-            updateWidgetIntent.putExtra(IngredientsWidgetProvider.INGREDIENTS_TEXT_EXTRA, recipe.toIngredientsText());
-
-            updateWidgetIntent.setComponent(new ComponentName(getContext(), IngredientsWidgetProvider.class));
-
-            // todo tried this, but still delay in receive
-            // https://stackoverflow.com/questions/44516173/broadcasts-are-delayed
-            updateWidgetIntent.setFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-
-            getContext().sendBroadcast(updateWidgetIntent);
-
+            storeInPref(recipe);
+            updateWidget();
 
             // start recipe details activity
             Intent recipeDetailsActivityIntent = new Intent(getActivity(), RecipeDetailsActivity.class);
@@ -162,4 +155,39 @@ public class RecipeListFragment extends Fragment implements
         }
     }
 
+    /**
+     * Updates ingredients in list widget
+     * */
+    private void updateWidget() {
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getContext());
+//            int[] widgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(getContext(), IngredientsWidgetProvider.class));
+        Intent updateWidgetIntent = new Intent();
+        updateWidgetIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+//            updateWidgetIntent.putExtra(IngredientsWidgetProvider.WIDGET_IDS_EXTRA, widgetIds);
+//            updateWidgetIntent.putExtra(IngredientsWidgetProvider.INGREDIENTS_TEXT_EXTRA, recipe.toIngredientsText());
+
+        updateWidgetIntent.setComponent(new ComponentName(getContext(), IngredientsWidgetProvider.class));
+
+        // todo tried this, but still delay in receive
+        // https://stackoverflow.com/questions/44516173/broadcasts-are-delayed
+        updateWidgetIntent.setFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+
+        getContext().sendBroadcast(updateWidgetIntent);
+
+    }
+
+    /**
+     * Stores recipe in Shared Preferences for widget
+     * */
+    private void storeInPref(Recipe recipe) {
+        Gson gson = new Gson();
+
+        String recipeJson = gson.toJson(recipe);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(MainActivity.RECIPE_EXTRA, recipeJson);
+        editor.commit();
+    }
 }
