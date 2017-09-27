@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:padding="@dimen/ingredients_widget_padding"
+    android:id="@+id/ingredients_widget_layout"
     >
 
     <!-- Ingredients list -->

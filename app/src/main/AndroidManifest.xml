@@ -11,7 +11,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".ui.activity.MainActivity"
             android:launchMode="singleTop">
@@ -21,30 +20,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.activity.RecipeDetailsActivity"
-            android:parentActivityName=".ui.activity.MainActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.activity.MainActivity"></activity>
+        <activity
+            android:name=".ui.activity.StepActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.activity.RecipeDetailsActivity"></activity>
 
-        </activity>
-
-        <activity android:name=".ui.activity.StepActivity"
-            android:parentActivityName=".ui.activity.RecipeDetailsActivity"
-            android:launchMode="singleTop">
-
-        </activity>
-
-        <receiver android:name=".ui.widget.IngredientsWidgetProvider" >
+        <receiver android:name=".ui.widget.IngredientsWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
+
+            <meta-data
+                android:name="android.appwidget.provider"
                 android:resource="@xml/ingredients_widget_info" />
         </receiver>
 
-        <service android:name=".ui.widget.IngredientsListService"
+        <service
+            android:name=".ui.widget.IngredientsListService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <activity android:name=".ui.activity.ChooseRecipeForWidgetActivity"></activity>
     </application>
 
 </manifest>
