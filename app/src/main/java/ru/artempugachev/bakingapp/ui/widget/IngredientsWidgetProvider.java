@@ -6,10 +6,13 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
 
 import ru.artempugachev.bakingapp.R;
 import ru.artempugachev.bakingapp.ui.activity.ChooseRecipeForWidgetActivity;
+import ru.artempugachev.bakingapp.ui.activity.MainActivity;
 
 /**
  * Provider for ingredients list widget
@@ -46,6 +49,17 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
         }
 
         super.onReceive(context, intent);
+    }
+
+    /**
+     * Retrieve recipe id for current widget
+     * */
+    private int readRecipeIdFromPrefs(Context context, int widgetId) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String recipeInWidgetKey = MainActivity.RECIPE_IN_WIDGET_KEY + String.valueOf(widgetId);
+
+        int recipeId = sharedPreferences.getInt(recipeInWidgetKey, 0);  // display first recipe by default
+        return recipeId;
     }
 
     //

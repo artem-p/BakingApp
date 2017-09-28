@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity  {
     public static final String STEP_EXTRA = "step";
     public static final String CURRENT_STEP_ID_EXTRA = "current_step_id";
     public static final String IS_TWO_PANE_EXTRA = "two_pane";
+    public static final String RECIPE_IN_WIDGET_KEY = "recipe_widget_";
 
 
     @Override
