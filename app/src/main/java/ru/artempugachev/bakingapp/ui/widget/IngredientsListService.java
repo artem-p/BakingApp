@@ -8,7 +8,10 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import ru.artempugachev.bakingapp.R;
@@ -44,12 +47,14 @@ class IngredientsListViewFactory implements RemoteViewsService.RemoteViewsFactor
     @Override
     public void onDataSetChanged() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String recipeJson = sharedPreferences.getString(MainActivity.RECIPE_EXTRA, "");
-        if (recipeJson.isEmpty()) {
+        String recipesJson = sharedPreferences.getString(MainActivity.RECIPE_EXTRA, "");
+        if (recipesJson.isEmpty()) {
             recipe = null;
         } else {
             Gson gson = new Gson();
-            recipe = gson.fromJson(recipeJson, Recipe.class);
+            Type recipesListType = new TypeToken<ArrayList<Recipe>>(){}.getType();
+            List<Recipe> recipes = gson.fromJson(recipesJson, recipesListType);
+            recipe = recipes.get(0);
         }
     }
 

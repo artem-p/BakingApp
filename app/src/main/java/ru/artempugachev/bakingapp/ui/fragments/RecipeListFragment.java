@@ -111,6 +111,7 @@ public class RecipeListFragment extends Fragment implements
     public void onLoadFinished(Loader<List<Recipe>> loader, List<Recipe> recipes) {
         if (recipes != null && !recipes.isEmpty()) {
             recipeAdapter.setRecipes(recipes);
+            storeInPref(recipes);
         } else {
             // todo handle no recipes
         }
@@ -145,8 +146,8 @@ public class RecipeListFragment extends Fragment implements
 
 
         if (recipe != null) {
-            storeInPref(recipe);
-            updateWidget();
+//            storeInPref(recipe);
+//            updateWidget();
 
             // start recipe details activity
             Intent recipeDetailsActivityIntent = new Intent(getActivity(), RecipeDetailsActivity.class);
@@ -158,26 +159,26 @@ public class RecipeListFragment extends Fragment implements
     /**
      * Updates ingredients in list widget
      * */
-    private void updateWidget() {
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getContext());
-        Intent updateWidgetIntent = new Intent();
-        updateWidgetIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-
-        updateWidgetIntent.setComponent(new ComponentName(getContext(), IngredientsWidgetProvider.class));
-
-        updateWidgetIntent.setFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-
-        getContext().sendBroadcast(updateWidgetIntent);
-
-    }
+//    private void updateWidget() {
+//        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getContext());
+//        Intent updateWidgetIntent = new Intent();
+//        updateWidgetIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+//
+//        updateWidgetIntent.setComponent(new ComponentName(getContext(), IngredientsWidgetProvider.class));
+//
+//        updateWidgetIntent.setFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+//
+//        getContext().sendBroadcast(updateWidgetIntent);
+//
+//    }
 
     /**
      * Stores recipe in Shared Preferences for widget
      * */
-    private void storeInPref(Recipe recipe) {
+    private void storeInPref(List<Recipe> recipes) {
         Gson gson = new Gson();
 
-        String recipeJson = gson.toJson(recipe);
+        String recipeJson = gson.toJson(recipes);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
