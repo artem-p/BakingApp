@@ -33,10 +33,12 @@ public class IngredientsListService extends RemoteViewsService {
 
 class IngredientsListViewFactory implements RemoteViewsService.RemoteViewsFactory {
     private Context context;
+    private Intent intent;
     private Recipe recipe;
 
     public IngredientsListViewFactory(Context applicationContext, Intent intent) {
         this.context = applicationContext;
+        this.intent = intent;
     }
 
     @Override
@@ -51,11 +53,22 @@ class IngredientsListViewFactory implements RemoteViewsService.RemoteViewsFactor
         if (recipesJson.isEmpty()) {
             recipe = null;
         } else {
+            recipe = getRecipe(recipesJson);
+        }
+    }
+
+    private Recipe getRecipe(String recipesJson) {
+        Recipe recipe = null;
+        // get recipe id for current widget
+        if (intent.hasExtra(MainActivity.RECIPE_ID_EXTRA)) {
+            int recipeId = intent.getIntExtra(MainActivity.RECIPE_ID_EXTRA, 0);
             Gson gson = new Gson();
             Type recipesListType = new TypeToken<ArrayList<Recipe>>(){}.getType();
             List<Recipe> recipes = gson.fromJson(recipesJson, recipesListType);
-            recipe = recipes.get(0);
+            recipe = recipes.get(recipeId);
         }
+
+        return recipe;
     }
 
     @Override

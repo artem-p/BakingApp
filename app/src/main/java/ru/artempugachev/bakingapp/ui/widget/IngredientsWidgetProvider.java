@@ -19,14 +19,14 @@ import ru.artempugachev.bakingapp.ui.activity.MainActivity;
  */
 
 public class IngredientsWidgetProvider extends AppWidgetProvider {
-    public static final String WIDGET_IDS_EXTRA = "widget_ids";
-    public static final String INGREDIENTS_TEXT_EXTRA = "ingredients_text";
-
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for (int widgetId : appWidgetIds) {
+            int recipeId = readRecipeIdFromPrefs(context, widgetId);
+
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget);
             Intent widgetServiceIntent = new Intent(context, IngredientsListService.class);
+            widgetServiceIntent.putExtra(MainActivity.RECIPE_ID_EXTRA, recipeId);
             remoteViews.setRemoteAdapter(R.id.ingredients_widget_ingredients_list, widgetServiceIntent);
 
             // create an intent to launch activity where one can choose recipe
