@@ -10,7 +10,6 @@ import android.widget.RemoteViews;
 
 import ru.artempugachev.bakingapp.R;
 import ru.artempugachev.bakingapp.ui.activity.ChooseRecipeForWidgetActivity;
-import ru.artempugachev.bakingapp.ui.activity.MainActivity;
 
 /**
  * Provider for ingredients list widget
@@ -30,7 +29,7 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
             // create an intent to launch activity where one can choose recipe
             Intent recipeChooseIntent = new Intent(context, ChooseRecipeForWidgetActivity.class);
             PendingIntent recipeChoosePendingIntent = PendingIntent.getActivity(context, 0, recipeChooseIntent, 0);
-            remoteViews.setOnClickPendingIntent(R.id.ingredients_widget_layout, recipeChoosePendingIntent);
+            remoteViews.setOnClickPendingIntent(R.id.ingredients_widget_root_layout, recipeChoosePendingIntent);
 
             appWidgetManager.updateAppWidget(widgetId, remoteViews);
         }
