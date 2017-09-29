@@ -31,6 +31,8 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
 
             // create an intent to launch activity where one can choose recipe
             Intent recipeChooseIntent = new Intent(context, ChooseRecipeForWidgetActivity.class);
+            recipeChooseIntent.putExtra(MainActivity.RECIPE_IN_WIDGET_KEY + widgetId, recipeId);
+            recipeChooseIntent.putExtra(MainActivity.WIDGET_ID_KEY, widgetId);
             PendingIntent recipeChoosePendingIntent = PendingIntent.getActivity(context, 0, recipeChooseIntent, 0);
             remoteViews.setOnClickPendingIntent(R.id.ingredients_widget_root_layout, recipeChoosePendingIntent);
 
