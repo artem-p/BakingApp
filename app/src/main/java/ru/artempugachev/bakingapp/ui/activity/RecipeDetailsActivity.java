@@ -35,14 +35,14 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepsAda
     private void fillRecipeViews() {
         Intent intent = getIntent();
 
-        if (intent != null && intent.hasExtra(MainActivity.RECIPES_EXTRA)) {
-            recipe = intent.getParcelableExtra(MainActivity.RECIPES_EXTRA);
+        if (intent != null && intent.hasExtra(MainActivity.RECIPES_KEY)) {
+            recipe = intent.getParcelableExtra(MainActivity.RECIPES_KEY);
         }
 
         RecipeDetailsFragment recipeDetailsFragment = new RecipeDetailsFragment();
 
         Bundle arguments = new Bundle();
-        arguments.putParcelable(MainActivity.RECIPES_EXTRA, recipe);
+        arguments.putParcelable(MainActivity.RECIPES_KEY, recipe);
         recipeDetailsFragment.setArguments(arguments);
 
         FragmentManager fm = getSupportFragmentManager();
@@ -83,7 +83,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepsAda
         } else {
             if (recipe != null) {
                 Intent intent = new Intent(RecipeDetailsActivity.this, StepActivity.class);
-                intent.putExtra(MainActivity.RECIPES_EXTRA, recipe);
+                intent.putExtra(MainActivity.RECIPES_KEY, recipe);
                 intent.putExtra(MainActivity.CURRENT_STEP_ID_EXTRA, stepPosition);
                 startActivity(intent);
             }

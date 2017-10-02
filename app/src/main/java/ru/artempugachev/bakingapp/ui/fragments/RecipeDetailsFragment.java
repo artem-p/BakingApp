@@ -44,7 +44,7 @@ public class RecipeDetailsFragment extends Fragment {
 
         Bundle arguments = getArguments();
         if (arguments != null) {
-            recipe = arguments.getParcelable(MainActivity.RECIPES_EXTRA);
+            recipe = arguments.getParcelable(MainActivity.RECIPES_KEY);
 
             if (recipe != null) {
                 fillViews(recipe);

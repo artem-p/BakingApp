@@ -48,28 +48,15 @@ class IngredientsListViewFactory implements RemoteViewsService.RemoteViewsFactor
 
     @Override
     public void onDataSetChanged() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String recipesJson = sharedPreferences.getString(MainActivity.RECIPES_EXTRA, "");
-        if (recipesJson.isEmpty()) {
-            recipe = null;
-        } else {
-            recipe = getRecipe(recipesJson);
-        }
+//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+//        String recipesJson = sharedPreferences.getString(MainActivity.RECIPES_KEY, "");
+//        if (recipesJson.isEmpty()) {
+//            recipe = null;
+//        } else {
+//            recipe = getRecipe(recipesJson);
+//        }
     }
 
-    private Recipe getRecipe(String recipesJson) {
-        Recipe recipe = null;
-        // get recipe id for current widget
-        if (intent.hasExtra(MainActivity.RECIPE_ID_EXTRA)) {
-            int recipeId = intent.getIntExtra(MainActivity.RECIPE_ID_EXTRA, 0);
-            Gson gson = new Gson();
-            Type recipesListType = new TypeToken<ArrayList<Recipe>>(){}.getType();
-            List<Recipe> recipes = gson.fromJson(recipesJson, recipesListType);
-            recipe = recipes.get(recipeId);
-        }
-
-        return recipe;
-    }
 
     @Override
     public void onDestroy() {

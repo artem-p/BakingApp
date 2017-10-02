@@ -6,13 +6,20 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import ru.artempugachev.bakingapp.R;
+import ru.artempugachev.bakingapp.model.Recipe;
 
 public class WidgetConfigurationActivity extends AppCompatActivity {
     private int widgetId;
-
+    private List<Recipe> recipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +39,11 @@ public class WidgetConfigurationActivity extends AppCompatActivity {
         }
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
+        String recipesJson = preferences.getString(MainActivity.RECIPES_KEY, "");
+        if (recipesJson.isEmpty()) {
+            Gson gson = new Gson();
+            Type recipesListType = new TypeToken<ArrayList<Recipe>>(){}.getType();
+            recipes = gson.fromJson(recipesJson, recipesListType);
+        }
     }
 }

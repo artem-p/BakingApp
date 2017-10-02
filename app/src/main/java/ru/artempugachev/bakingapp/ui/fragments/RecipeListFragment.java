@@ -144,7 +144,7 @@ public class RecipeListFragment extends Fragment implements
 
             // start recipe details activity
             Intent recipeDetailsActivityIntent = new Intent(getActivity(), RecipeDetailsActivity.class);
-            recipeDetailsActivityIntent.putExtra(MainActivity.RECIPES_EXTRA, recipe);
+            recipeDetailsActivityIntent.putExtra(MainActivity.RECIPES_KEY, recipe);
             startActivity(recipeDetailsActivityIntent);
         }
     }
@@ -176,7 +176,7 @@ public class RecipeListFragment extends Fragment implements
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(MainActivity.RECIPES_EXTRA, recipesJson);
+        editor.putString(MainActivity.RECIPES_KEY, recipesJson);
         editor.commit();
     }
 }

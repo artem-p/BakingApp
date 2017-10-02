@@ -36,8 +36,8 @@ public class StepActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         if (intent != null) {
-            if (intent.hasExtra(MainActivity.RECIPES_EXTRA)) {
-                Recipe recipe = intent.getParcelableExtra(MainActivity.RECIPES_EXTRA);
+            if (intent.hasExtra(MainActivity.RECIPES_KEY)) {
+                Recipe recipe = intent.getParcelableExtra(MainActivity.RECIPES_KEY);
 
                 setUpViewPager(recipe);
 
