@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity  {
     public static final String IS_TWO_PANE_EXTRA = "two_pane";
     public static final String RECIPE_IN_WIDGET_KEY = "recipe_widget_";
     public static final String RECIPE_ID_EXTRA = "recipe_id";
-    public static final String WIDGET_ID_KEY = "widget_id";
 
 
     @Override

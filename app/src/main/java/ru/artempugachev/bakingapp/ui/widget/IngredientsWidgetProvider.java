@@ -11,7 +11,7 @@ import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
 
 import ru.artempugachev.bakingapp.R;
-import ru.artempugachev.bakingapp.ui.activity.ChooseRecipeForWidgetActivity;
+import ru.artempugachev.bakingapp.ui.activity.WidgetConfigurationActivity;
 import ru.artempugachev.bakingapp.ui.activity.MainActivity;
 
 /**
@@ -30,9 +30,9 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
             remoteViews.setRemoteAdapter(R.id.ingredients_widget_ingredients_list, widgetServiceIntent);
 
             // create an intent to launch activity where one can choose recipe
-            Intent recipeChooseIntent = new Intent(context, ChooseRecipeForWidgetActivity.class);
+            Intent recipeChooseIntent = new Intent(context, WidgetConfigurationActivity.class);
             recipeChooseIntent.putExtra(MainActivity.RECIPE_IN_WIDGET_KEY + widgetId, recipeId);
-            recipeChooseIntent.putExtra(MainActivity.WIDGET_ID_KEY, widgetId);
+            recipeChooseIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
             PendingIntent recipeChoosePendingIntent = PendingIntent.getActivity(context, 0, recipeChooseIntent, 0);
             remoteViews.setOnClickPendingIntent(R.id.ingredients_widget_root_layout, recipeChoosePendingIntent);
 

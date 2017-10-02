@@ -43,9 +43,13 @@
             android:name=".ui.widget.IngredientsListService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <activity android:name=".ui.activity.ChooseRecipeForWidgetActivity"
+        <activity android:name=".ui.activity.WidgetConfigurationActivity"
             android:theme="@style/Theme.AppCompat.Light.Dialog"
-            />
+            >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package ru.artempugachev.bakingapp.ui.activity;
 
+import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,7 +8,7 @@ import android.widget.Toast;
 
 import ru.artempugachev.bakingapp.R;
 
-public class ChooseRecipeForWidgetActivity extends AppCompatActivity {
+public class WidgetConfigurationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,12 +17,13 @@ public class ChooseRecipeForWidgetActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent != null) {
-            if (intent.hasExtra(MainActivity.WIDGET_ID_KEY)) {
-                int widgetId = intent.getIntExtra(MainActivity.WIDGET_ID_KEY, 0);
-                String recipeInWidgetKey = MainActivity.RECIPE_IN_WIDGET_KEY + widgetId;
-                if (intent.hasExtra(recipeInWidgetKey)) {
-                    int recipeId = intent.getIntExtra(recipeInWidgetKey, 0);
-                }
+            if (intent.hasExtra(AppWidgetManager.EXTRA_APPWIDGET_ID)) {
+                int widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
+                        AppWidgetManager.INVALID_APPWIDGET_ID);
+//                String recipeInWidgetKey = MainActivity.RECIPE_IN_WIDGET_KEY + widgetId;
+//                if (intent.hasExtra(recipeInWidgetKey)) {
+//                    int recipeId = intent.getIntExtra(recipeInWidgetKey, 0);
+//                }
             }
         }
     }
