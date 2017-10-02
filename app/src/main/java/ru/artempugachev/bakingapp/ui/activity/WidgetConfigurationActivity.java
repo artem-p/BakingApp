@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -16,10 +18,14 @@ import java.util.List;
 
 import ru.artempugachev.bakingapp.R;
 import ru.artempugachev.bakingapp.model.Recipe;
+import ru.artempugachev.bakingapp.ui.adapters.RecipeAdapter;
+import ru.artempugachev.bakingapp.ui.adapters.WidgetRecipeAdapter;
 
 public class WidgetConfigurationActivity extends AppCompatActivity {
     private int widgetId;
     private List<Recipe> recipes;
+    private ListView recipesList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +50,10 @@ public class WidgetConfigurationActivity extends AppCompatActivity {
             Gson gson = new Gson();
             Type recipesListType = new TypeToken<ArrayList<Recipe>>(){}.getType();
             recipes = gson.fromJson(recipesJson, recipesListType);
+        }
+
+        if (recipes != null && !recipes.isEmpty()) {
+            WidgetRecipeAdapter adapter = new WidgetRecipeAdapter();
         }
     }
 }
