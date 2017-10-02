@@ -29,13 +29,6 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
             widgetServiceIntent.putExtra(MainActivity.RECIPE_ID_EXTRA, recipeId);
             remoteViews.setRemoteAdapter(R.id.ingredients_widget_ingredients_list, widgetServiceIntent);
 
-            // create an intent to launch activity where one can choose recipe
-            Intent recipeChooseIntent = new Intent(context, WidgetConfigurationActivity.class);
-            recipeChooseIntent.putExtra(MainActivity.RECIPE_IN_WIDGET_KEY + widgetId, recipeId);
-            recipeChooseIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
-            PendingIntent recipeChoosePendingIntent = PendingIntent.getActivity(context, 0, recipeChooseIntent, 0);
-            remoteViews.setOnClickPendingIntent(R.id.ingredients_widget_root_layout, recipeChoosePendingIntent);
-
             appWidgetManager.updateAppWidget(widgetId, remoteViews);
         }
     }

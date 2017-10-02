@@ -7,15 +7,6 @@
     android:id="@+id/ingredients_widget_root_layout"
     >
 
-    <!-- Settings button -->
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/settings"
-        android:layout_gravity="right"
-        />
-
-
     <!-- Ingredients list -->
     <ListView
         android:id="@+id/ingredients_widget_ingredients_list"
