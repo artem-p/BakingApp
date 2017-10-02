@@ -2,8 +2,6 @@ package ru.artempugachev.bakingapp.ui.fragments;
 
 
 
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,17 +12,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RemoteViews;
 
 import com.google.gson.Gson;
-
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -36,7 +30,6 @@ import ru.artempugachev.bakingapp.network.RecipeListLoader;
 import ru.artempugachev.bakingapp.ui.adapters.RecipeAdapter;
 import ru.artempugachev.bakingapp.ui.activity.MainActivity;
 import ru.artempugachev.bakingapp.ui.activity.RecipeDetailsActivity;
-import ru.artempugachev.bakingapp.ui.widget.IngredientsWidgetProvider;
 
 public class RecipeListFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<List<Recipe>>, RecipeListLoader.RecipeLoadListener,
@@ -151,7 +144,7 @@ public class RecipeListFragment extends Fragment implements
 
             // start recipe details activity
             Intent recipeDetailsActivityIntent = new Intent(getActivity(), RecipeDetailsActivity.class);
-            recipeDetailsActivityIntent.putExtra(MainActivity.RECIPE_EXTRA, recipe);
+            recipeDetailsActivityIntent.putExtra(MainActivity.RECIPES_EXTRA, recipe);
             startActivity(recipeDetailsActivityIntent);
         }
     }
@@ -178,12 +171,12 @@ public class RecipeListFragment extends Fragment implements
     private void storeInPref(List<Recipe> recipes) {
         Gson gson = new Gson();
 
-        String recipeJson = gson.toJson(recipes);
+        String recipesJson = gson.toJson(recipes);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(MainActivity.RECIPE_EXTRA, recipeJson);
+        editor.putString(MainActivity.RECIPES_EXTRA, recipesJson);
         editor.commit();
     }
 }

@@ -1,6 +1,5 @@
 package ru.artempugachev.bakingapp.ui.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,7 +16,6 @@ import ru.artempugachev.bakingapp.R;
 import ru.artempugachev.bakingapp.model.Recipe;
 import ru.artempugachev.bakingapp.ui.adapters.StepsAdapter;
 import ru.artempugachev.bakingapp.ui.activity.MainActivity;
-import ru.artempugachev.bakingapp.ui.activity.StepActivity;
 
 /**
  * List of ingredients and steps to prepare
@@ -46,7 +44,7 @@ public class RecipeDetailsFragment extends Fragment {
 
         Bundle arguments = getArguments();
         if (arguments != null) {
-            recipe = arguments.getParcelable(MainActivity.RECIPE_EXTRA);
+            recipe = arguments.getParcelable(MainActivity.RECIPES_EXTRA);
 
             if (recipe != null) {
                 fillViews(recipe);

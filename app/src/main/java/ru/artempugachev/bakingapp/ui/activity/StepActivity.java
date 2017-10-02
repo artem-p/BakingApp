@@ -1,8 +1,6 @@
 package ru.artempugachev.bakingapp.ui.activity;
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -15,7 +13,6 @@ import butterknife.ButterKnife;
 import ru.artempugachev.bakingapp.R;
 import ru.artempugachev.bakingapp.model.Recipe;
 import ru.artempugachev.bakingapp.model.Step;
-import ru.artempugachev.bakingapp.ui.activity.MainActivity;
 import ru.artempugachev.bakingapp.ui.adapters.StepPagerAdapter;
 import ru.artempugachev.bakingapp.ui.fragments.StepFragment;
 
@@ -39,8 +36,8 @@ public class StepActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         if (intent != null) {
-            if (intent.hasExtra(MainActivity.RECIPE_EXTRA)) {
-                Recipe recipe = intent.getParcelableExtra(MainActivity.RECIPE_EXTRA);
+            if (intent.hasExtra(MainActivity.RECIPES_EXTRA)) {
+                Recipe recipe = intent.getParcelableExtra(MainActivity.RECIPES_EXTRA);
 
                 setUpViewPager(recipe);
 

@@ -49,7 +49,7 @@ class IngredientsListViewFactory implements RemoteViewsService.RemoteViewsFactor
     @Override
     public void onDataSetChanged() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String recipesJson = sharedPreferences.getString(MainActivity.RECIPE_EXTRA, "");
+        String recipesJson = sharedPreferences.getString(MainActivity.RECIPES_EXTRA, "");
         if (recipesJson.isEmpty()) {
             recipe = null;
         } else {

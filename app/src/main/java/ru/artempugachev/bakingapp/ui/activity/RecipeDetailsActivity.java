@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import butterknife.ButterKnife;
 import ru.artempugachev.bakingapp.R;
 import ru.artempugachev.bakingapp.model.Recipe;
 import ru.artempugachev.bakingapp.model.Step;
@@ -36,14 +35,14 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepsAda
     private void fillRecipeViews() {
         Intent intent = getIntent();
 
-        if (intent != null && intent.hasExtra(MainActivity.RECIPE_EXTRA)) {
-            recipe = intent.getParcelableExtra(MainActivity.RECIPE_EXTRA);
+        if (intent != null && intent.hasExtra(MainActivity.RECIPES_EXTRA)) {
+            recipe = intent.getParcelableExtra(MainActivity.RECIPES_EXTRA);
         }
 
         RecipeDetailsFragment recipeDetailsFragment = new RecipeDetailsFragment();
 
         Bundle arguments = new Bundle();
-        arguments.putParcelable(MainActivity.RECIPE_EXTRA, recipe);
+        arguments.putParcelable(MainActivity.RECIPES_EXTRA, recipe);
         recipeDetailsFragment.setArguments(arguments);
 
         FragmentManager fm = getSupportFragmentManager();
@@ -84,7 +83,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepsAda
         } else {
             if (recipe != null) {
                 Intent intent = new Intent(RecipeDetailsActivity.this, StepActivity.class);
-                intent.putExtra(MainActivity.RECIPE_EXTRA, recipe);
+                intent.putExtra(MainActivity.RECIPES_EXTRA, recipe);
                 intent.putExtra(MainActivity.CURRENT_STEP_ID_EXTRA, stepPosition);
                 startActivity(intent);
             }
