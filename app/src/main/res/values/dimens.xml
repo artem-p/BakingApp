@@ -13,4 +13,5 @@
     <dimen name="step_description_margin">8dp</dimen>
     <dimen name="ingredients_widget_padding">8dp</dimen>
     <dimen name="ingredients_widget_list_item_padding">8dp</dimen>
+    <dimen name="widget_configuration_list_item_padding">8dp</dimen>
 </resources>

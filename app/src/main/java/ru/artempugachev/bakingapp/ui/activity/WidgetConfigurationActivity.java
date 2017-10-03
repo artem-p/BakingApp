@@ -6,8 +6,8 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -16,21 +16,27 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ru.artempugachev.bakingapp.R;
 import ru.artempugachev.bakingapp.model.Recipe;
-import ru.artempugachev.bakingapp.ui.adapters.RecipeAdapter;
 import ru.artempugachev.bakingapp.ui.adapters.WidgetRecipeAdapter;
 
 public class WidgetConfigurationActivity extends AppCompatActivity {
     private int widgetId;
     private List<Recipe> recipes;
-    private ListView recipesList;
+
+    @BindView(R.id.widget_configuration_recipe_recycler)
+    RecyclerView recipesRecycler;
+
+    private WidgetRecipeAdapter adapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choose_recipe_for_widget);
+        setContentView(R.layout.widget_configuration_activity);
+        ButterKnife.bind(this);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -46,14 +52,20 @@ public class WidgetConfigurationActivity extends AppCompatActivity {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String recipesJson = preferences.getString(MainActivity.RECIPES_KEY, "");
-        if (recipesJson.isEmpty()) {
+        if (recipesJson.length() > 0) {
             Gson gson = new Gson();
             Type recipesListType = new TypeToken<ArrayList<Recipe>>(){}.getType();
             recipes = gson.fromJson(recipesJson, recipesListType);
         }
 
         if (recipes != null && !recipes.isEmpty()) {
-            WidgetRecipeAdapter adapter = new WidgetRecipeAdapter();
+            adapter = new WidgetRecipeAdapter();
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+            recipesRecycler.setLayoutManager(layoutManager);
+            recipesRecycler.setHasFixedSize(true);
+            recipesRecycler.setAdapter(adapter);
+            adapter.setRecipes(recipes);
         }
+
     }
 }
