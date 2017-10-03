@@ -22,9 +22,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.artempugachev.bakingapp.R;
 import ru.artempugachev.bakingapp.model.Recipe;
+import ru.artempugachev.bakingapp.ui.adapters.RecipeAdapter;
 import ru.artempugachev.bakingapp.ui.adapters.WidgetRecipeAdapter;
 
-public class WidgetConfigurationActivity extends AppCompatActivity {
+public class WidgetConfigurationActivity extends AppCompatActivity implements RecipeAdapter.RecipeClickListener {
     private int widgetId;
     private List<Recipe> recipes;
 
@@ -62,13 +63,18 @@ public class WidgetConfigurationActivity extends AppCompatActivity {
         }
 
         if (recipes != null && !recipes.isEmpty()) {
-            adapter = new WidgetRecipeAdapter();
+            adapter = new WidgetRecipeAdapter(this);
             LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             recipesRecycler.setLayoutManager(layoutManager);
             recipesRecycler.setHasFixedSize(true);
             recipesRecycler.setAdapter(adapter);
             adapter.setRecipes(recipes);
         }
+
+    }
+
+    @Override
+    public void onRecipeClick(int position) {
 
     }
 }

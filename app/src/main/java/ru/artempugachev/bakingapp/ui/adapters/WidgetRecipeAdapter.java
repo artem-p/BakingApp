@@ -20,6 +20,11 @@ import ru.artempugachev.bakingapp.model.Recipe;
 
 public class WidgetRecipeAdapter extends RecyclerView.Adapter<WidgetRecipeAdapter.WidgetRecipeViewHolder> {
     private List<Recipe> recipes;
+    private RecipeAdapter.RecipeClickListener recipeClickListener;
+
+    public WidgetRecipeAdapter(RecipeAdapter.RecipeClickListener recipeClickListener) {
+        this.recipeClickListener = recipeClickListener;
+    }
 
     public void setRecipes(List<Recipe> recipes) {
         this.recipes = recipes;
@@ -50,17 +55,24 @@ public class WidgetRecipeAdapter extends RecyclerView.Adapter<WidgetRecipeAdapte
         return recipes != null ? recipes.size() : 0;
     }
 
-    public class WidgetRecipeViewHolder extends RecyclerView.ViewHolder {
+    public class WidgetRecipeViewHolder extends RecyclerView.ViewHolder
+                implements View.OnClickListener {
         @BindView(R.id.widget_configuration_recipe_item)
         TextView recipeTitle;
 
         public WidgetRecipeViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
         }
 
         public void fillRecipe(Recipe recipe) {
             recipeTitle.setText(recipe.getName());
+        }
+
+        @Override
+        public void onClick(View v) {
+            recipeClickListener.onRecipeClick(getAdapterPosition());
         }
     }
 }
