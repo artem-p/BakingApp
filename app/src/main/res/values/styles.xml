@@ -12,4 +12,8 @@
         <item name="android:textSize">24sp</item>
     </style>
 
+    <style name="WidgetConfigurationTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="windowNoTitle">true</item>
+    </style>
+
 </resources>
