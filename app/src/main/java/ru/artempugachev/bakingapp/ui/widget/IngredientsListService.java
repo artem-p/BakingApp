@@ -1,5 +1,6 @@
 package ru.artempugachev.bakingapp.ui.widget;
 
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -48,15 +49,42 @@ class IngredientsListViewFactory implements RemoteViewsService.RemoteViewsFactor
 
     @Override
     public void onDataSetChanged() {
-//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-//        String recipesJson = sharedPreferences.getString(MainActivity.RECIPES_KEY, "");
-//        if (recipesJson.isEmpty()) {
-//            recipe = null;
-//        } else {
-//            recipe = getRecipe(recipesJson);
+//        if (intent.hasExtra(MainActivity.RECIPE_ID_EXTRA)) {
+//            int widgetId = intent.getIntExtra(MainActivity.RECIPE_ID_EXTRA, -1);
+//            if (widgetId != -1) {
+//
+//            }
 //        }
+
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String recipesJson = sharedPreferences.getString(MainActivity.RECIPES_KEY, "");
+        if (intent.hasExtra(MainActivity.RECIPE_ID_EXTRA)) {
+            int recipeId = intent.getIntExtra(MainActivity.RECIPE_ID_EXTRA, -1);
+
+            if (recipesJson.isEmpty()) {
+                recipe = null;
+            } else {
+                recipe = getRecipeFromJson(recipesJson, recipeId);
+            }
+        }
+
     }
 
+    private Recipe getRecipeFromJson(String recipesJson, int recipeId) {
+        Gson gson = new Gson();
+        Type recipesListType = new TypeToken<ArrayList<Recipe>>(){}.getType();
+        List<Recipe> recipes = gson.fromJson(recipesJson, recipesListType);
+        if (recipes != null && !recipes.isEmpty() && recipes.size() > recipeId) {
+            return recipes.get(recipeId);
+        } else {
+            return null;
+        }
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
 
     @Override
     public void onDestroy() {

@@ -1,6 +1,5 @@
 package ru.artempugachev.bakingapp.ui.widget;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
@@ -11,7 +10,6 @@ import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
 
 import ru.artempugachev.bakingapp.R;
-import ru.artempugachev.bakingapp.ui.activity.WidgetConfigurationActivity;
 import ru.artempugachev.bakingapp.ui.activity.MainActivity;
 
 /**
@@ -39,10 +37,13 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
         if (action.equals(AppWidgetManager.ACTION_APPWIDGET_UPDATE)) {
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             ComponentName componentName = new ComponentName(context, IngredientsWidgetProvider.class);
+            int[] widgetIds = {intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1)};
+
+            this.onUpdate(context, appWidgetManager, widgetIds);
+
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetManager.getAppWidgetIds(componentName),
                     R.id.ingredients_widget_ingredients_list);
         }
-
         super.onReceive(context, intent);
     }
 
@@ -53,7 +54,7 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String recipeInWidgetKey = MainActivity.RECIPE_IN_WIDGET_KEY + String.valueOf(widgetId);
 
-        int recipeId = sharedPreferences.getInt(recipeInWidgetKey, 0);  // display first recipe by default
+        int recipeId = sharedPreferences.getInt(recipeInWidgetKey, -1);  // display first recipe by default
         return recipeId;
     }
 

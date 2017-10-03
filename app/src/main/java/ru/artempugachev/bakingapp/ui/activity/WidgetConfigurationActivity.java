@@ -77,7 +77,7 @@ public class WidgetConfigurationActivity extends AppCompatActivity implements Re
 
     @Override
     public void onRecipeClick(int position) {
-        updateWidget();
+        updateWidget(position);
         Intent resultIntent = new Intent();
         resultIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
         setResult(RESULT_OK, resultIntent);
@@ -87,10 +87,12 @@ public class WidgetConfigurationActivity extends AppCompatActivity implements Re
     /**
      * Updates ingredients in list widget
      * */
-    private void updateWidget() {
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+    private void updateWidget(int recipeId) {
+        writeRecipeForWidgetToPrefs(widgetId, recipeId);
+
         Intent updateWidgetIntent = new Intent();
         updateWidgetIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        updateWidgetIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
 
         updateWidgetIntent.setComponent(new ComponentName(this, IngredientsWidgetProvider.class));
 
@@ -100,4 +102,14 @@ public class WidgetConfigurationActivity extends AppCompatActivity implements Re
 
     }
 
+    /**
+     * Store recipe id for widget in prefs
+     * */
+    private void writeRecipeForWidgetToPrefs(int widgetId, int recipeId) {
+        String recipeForWidgetKey = MainActivity.RECIPE_IN_WIDGET_KEY + widgetId;
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(recipeForWidgetKey, recipeId);
+        editor.commit();
+    }
 }
