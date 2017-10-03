@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
 
@@ -24,7 +25,13 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
 
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget);
             Intent widgetServiceIntent = new Intent(context, IngredientsListService.class);
-            widgetServiceIntent.putExtra(MainActivity.RECIPE_ID_EXTRA, recipeId);
+
+            // RemoteViewsService.onBind doesn't use intent's extra while comparing intents
+            // So if we want separate RemoteViewFactories for separate widgets,
+            // we need put recipe id in data, not extra
+            // https://stackoverflow.com/questions/11350287/ongetviewfactory-only-called-once-for-multiple-widgets
+            widgetServiceIntent.setData(Uri.fromParts("content", String.valueOf(recipeId), null));
+
             remoteViews.setRemoteAdapter(R.id.ingredients_widget_ingredients_list, widgetServiceIntent);
 
             appWidgetManager.updateAppWidget(widgetId, remoteViews);
@@ -57,34 +64,4 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
         int recipeId = sharedPreferences.getInt(recipeInWidgetKey, -1);  // display first recipe by default
         return recipeId;
     }
-
-    //
-//
-//    @Override
-//    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] widgetIds) {
-//        update(context, appWidgetManager, widgetIds, context.getResources().getString(R.string.ingredients_widget_default_text));
-//    }
-//
-//
-//    @Override
-//    public void onReceive(Context context, Intent intent) {
-//        if (intent.hasExtra(WIDGET_IDS_EXTRA)) {
-//            int[] widgetIds = intent.getExtras().getIntArray(WIDGET_IDS_EXTRA);
-//            if (intent.hasExtra(INGREDIENTS_TEXT_EXTRA)) {
-//                String ingredientsList = intent.getStringExtra(INGREDIENTS_TEXT_EXTRA);
-//                update(context, AppWidgetManager.getInstance(context), widgetIds, ingredientsList);
-//            } else {
-//                onUpdate(context, AppWidgetManager.getInstance(context), widgetIds);
-//            }
-//        } else super.onReceive(context, intent);
-//    }
-//
-//
-//    private void update(Context context, AppWidgetManager appWidgetManager, int[] widgetIds, String ingredients) {
-//        for (int widgetId : widgetIds) {
-//            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget);
-//            views.setTextViewText(R.id.ingredients_widget_list, ingredients);
-//            appWidgetManager.updateAppWidget(widgetId, views);
-//        }
-//    }
 }

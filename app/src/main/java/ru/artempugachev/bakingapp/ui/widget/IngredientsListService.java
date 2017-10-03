@@ -49,27 +49,19 @@ class IngredientsListViewFactory implements RemoteViewsService.RemoteViewsFactor
 
     @Override
     public void onDataSetChanged() {
-//        if (intent.hasExtra(MainActivity.RECIPE_ID_EXTRA)) {
-//            int widgetId = intent.getIntExtra(MainActivity.RECIPE_ID_EXTRA, -1);
-//            if (widgetId != -1) {
-//
-//            }
-//        }
-
-
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String recipesJson = sharedPreferences.getString(MainActivity.RECIPES_KEY, "");
-        if (intent.hasExtra(MainActivity.RECIPE_ID_EXTRA)) {
-            int recipeId = intent.getIntExtra(MainActivity.RECIPE_ID_EXTRA, -1);
 
-            if (recipesJson.isEmpty()) {
-                recipe = null;
-            } else {
-                recipe = getRecipeFromJson(recipesJson, recipeId);
-            }
+        // https://stackoverflow.com/questions/11350287/ongetviewfactory-only-called-once-for-multiple-widgets
+        int recipeId = Integer.valueOf(intent.getData().getSchemeSpecificPart());
+
+        if (!recipesJson.isEmpty() && recipeId != -1) {
+            recipe = getRecipeFromJson(recipesJson, recipeId);
+        } else {
+            recipe = null;
         }
-
     }
+
 
     private Recipe getRecipeFromJson(String recipesJson, int recipeId) {
         Gson gson = new Gson();
