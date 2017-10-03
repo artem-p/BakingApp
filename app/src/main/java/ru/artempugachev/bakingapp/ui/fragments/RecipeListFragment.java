@@ -139,9 +139,6 @@ public class RecipeListFragment extends Fragment implements
 
 
         if (recipe != null) {
-//            storeInPref(recipe);
-//            updateWidget();
-
             // start recipe details activity
             Intent recipeDetailsActivityIntent = new Intent(getActivity(), RecipeDetailsActivity.class);
             recipeDetailsActivityIntent.putExtra(MainActivity.RECIPES_KEY, recipe);
@@ -150,23 +147,7 @@ public class RecipeListFragment extends Fragment implements
     }
 
     /**
-     * Updates ingredients in list widget
-     * */
-//    private void updateWidget() {
-//        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getContext());
-//        Intent updateWidgetIntent = new Intent();
-//        updateWidgetIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-//
-//        updateWidgetIntent.setComponent(new ComponentName(getContext(), IngredientsWidgetProvider.class));
-//
-//        updateWidgetIntent.setFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-//
-//        getContext().sendBroadcast(updateWidgetIntent);
-//
-//    }
-
-    /**
-     * Stores recipe in Shared Preferences for widget
+     * Stores recipes in Shared Preferences for widget
      * */
     private void storeInPref(List<Recipe> recipes) {
         Gson gson = new Gson();

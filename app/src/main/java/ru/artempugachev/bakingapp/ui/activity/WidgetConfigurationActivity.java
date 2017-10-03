@@ -1,6 +1,7 @@
 package ru.artempugachev.bakingapp.ui.activity;
 
 import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -24,6 +25,7 @@ import ru.artempugachev.bakingapp.R;
 import ru.artempugachev.bakingapp.model.Recipe;
 import ru.artempugachev.bakingapp.ui.adapters.RecipeAdapter;
 import ru.artempugachev.bakingapp.ui.adapters.WidgetRecipeAdapter;
+import ru.artempugachev.bakingapp.ui.widget.IngredientsWidgetProvider;
 
 public class WidgetConfigurationActivity extends AppCompatActivity implements RecipeAdapter.RecipeClickListener {
     private int widgetId;
@@ -75,6 +77,27 @@ public class WidgetConfigurationActivity extends AppCompatActivity implements Re
 
     @Override
     public void onRecipeClick(int position) {
+        updateWidget();
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+        setResult(RESULT_OK, resultIntent);
+        finish();
+    }
+
+    /**
+     * Updates ingredients in list widget
+     * */
+    private void updateWidget() {
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+        Intent updateWidgetIntent = new Intent();
+        updateWidgetIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+
+        updateWidgetIntent.setComponent(new ComponentName(this, IngredientsWidgetProvider.class));
+
+        updateWidgetIntent.setFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+
+        sendBroadcast(updateWidgetIntent);
 
     }
+
 }
