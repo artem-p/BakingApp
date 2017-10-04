@@ -22,8 +22,6 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static org.hamcrest.CoreMatchers.anything;
-import static org.junit.Assert.assertEquals;
 
 /**
  * Test recipe list
@@ -34,7 +32,7 @@ public class RecipeListTest {
     public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     /**
-     * Clicks on recipe and list
+     * Clicks on recipe in list
      * Checks it opens up the RecipeDetails
      * */
     @Test
