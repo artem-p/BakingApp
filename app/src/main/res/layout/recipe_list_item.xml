@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/baking_placeholder"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 />
 
             <TextView
