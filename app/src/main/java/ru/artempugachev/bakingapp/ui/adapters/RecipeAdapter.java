@@ -5,7 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -19,10 +22,12 @@ import ru.artempugachev.bakingapp.model.Recipe;
  */
 
 public final class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
+    private Context context;
     private List<Recipe> recipes;
     private RecipeClickListener recipeClickListener;
 
-    public RecipeAdapter(RecipeClickListener recipeClickListener) {
+    public RecipeAdapter(Context context, RecipeClickListener recipeClickListener) {
+        this.context = context;
         this.recipeClickListener = recipeClickListener;
     }
 
@@ -61,9 +66,9 @@ public final class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.Reci
 
     /**
      * Return recipe with specified position
-     * */
+     */
     public Recipe getRecipe(int position) {
-        if (recipes!= null && !recipes.isEmpty() && recipes.size() > position) {
+        if (recipes != null && !recipes.isEmpty() && recipes.size() > position) {
             return recipes.get(position);
         } else {
             return null;
@@ -73,11 +78,14 @@ public final class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.Reci
 
     /**
      * View holder
-     * */
+     */
     public final class RecipeViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
-        @BindView(R.id.recipeTitle)
+        @BindView(R.id.recipe_title)
         TextView recipeTitle;
+
+        @BindView(R.id.recipe_image)
+        ImageView recipeImage;
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
@@ -86,6 +94,10 @@ public final class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.Reci
         }
 
         public void fillRecipe(Recipe recipe) {
+            String imageUrl = recipe.getImageUrl();
+            if (!imageUrl.equals("")) {
+                Picasso.with(context).load(imageUrl).into(recipeImage);
+            }
             recipeTitle.setText(recipe.getName());
         }
 
@@ -98,7 +110,7 @@ public final class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.Reci
 
     /**
      * Interface to handle clicks on recipe card
-     * */
+     */
     public interface RecipeClickListener {
         void onRecipeClick(int position);
     }

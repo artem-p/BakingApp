@@ -107,4 +107,8 @@ public final class Recipe implements Parcelable {
     public List<Ingredient> getIngredients() {
         return ingredients;
     }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
 }
