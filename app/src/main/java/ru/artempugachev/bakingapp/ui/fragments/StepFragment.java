@@ -2,7 +2,9 @@ package ru.artempugachev.bakingapp.ui.fragments;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,6 +30,8 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +53,7 @@ public class StepFragment extends Fragment{
     private SimpleExoPlayer player;
     private Step step = null;
     private boolean isTwoPane;
+    private Target thumbnailTarget;
 
 
     public StepFragment() {
@@ -124,7 +129,7 @@ public class StepFragment extends Fragment{
      * */
     private void fillStepViews(Step step) {
         if (step.getVideoUrl() != null && !step.getVideoUrl().isEmpty()) {
-            initializePlayer(step.getVideoUrl());
+            initializePlayer(step.getVideoUrl(), step.getThumbnailUrl());
         } else {
             hidePlayerView();
         }
@@ -137,8 +142,8 @@ public class StepFragment extends Fragment{
     }
 
 
-    private void initializePlayer(String videoUrl) {
-//        playerView.setDefaultArtwork(BitmapFactory.decodeResource(getResources(), R.drawable.baking_placeholder));
+    private void initializePlayer(String videoUrl, String thumbnailUrl) {
+        loadThumbnail(thumbnailUrl);
 
 //        if (player == null) {
         TrackSelector trackSelector = new DefaultTrackSelector();
@@ -154,6 +159,33 @@ public class StepFragment extends Fragment{
 
         player.setPlayWhenReady(false);
 //        }
+    }
+
+    /**
+     * If thumbnail url presents, loads thumbnail into player view
+     * */
+    private void loadThumbnail(String thumbnailUrl) {
+        if (!thumbnailUrl.equals("")) {
+            if (thumbnailTarget == null) thumbnailTarget = new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    playerView.setDefaultArtwork(bitmap);
+                }
+
+                @Override
+                public void onBitmapFailed(Drawable errorDrawable) {
+
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                }
+            };
+
+            Picasso.with(getActivity()).load(thumbnailUrl).into(thumbnailTarget);
+        }
+
     }
 
     private MediaSource buildMediaSource(Uri uri) {

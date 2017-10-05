@@ -87,4 +87,8 @@ public final class Step implements Parcelable {
     public String getPageTitle() {
         return "Step " + id;
     }
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
 }
