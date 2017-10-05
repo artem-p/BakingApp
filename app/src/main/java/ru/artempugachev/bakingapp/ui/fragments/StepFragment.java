@@ -138,7 +138,7 @@ public class StepFragment extends Fragment{
 
 
     private void initializePlayer(String videoUrl) {
-        playerView.setDefaultArtwork(BitmapFactory.decodeResource(getResources(), R.drawable.baking_placeholder));
+//        playerView.setDefaultArtwork(BitmapFactory.decodeResource(getResources(), R.drawable.baking_placeholder));
 
 //        if (player == null) {
         TrackSelector trackSelector = new DefaultTrackSelector();
