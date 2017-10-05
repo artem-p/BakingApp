@@ -31,6 +31,7 @@ public class RecipeDetailsFragment extends Fragment {
     private StepsAdapter stepsAdapter;
 
     private Recipe recipe;
+    private boolean isTwoPane;
 
     public RecipeDetailsFragment() {
     }
@@ -51,6 +52,8 @@ public class RecipeDetailsFragment extends Fragment {
             } else {
                 showNoRecipe();
             }
+
+            isTwoPane = arguments.getBoolean(MainActivity.IS_TWO_PANE_EXTRA);
         }
 
         return rootView;
@@ -66,7 +69,7 @@ public class RecipeDetailsFragment extends Fragment {
         LinearLayoutManager stepsLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         stepsRecycler.setLayoutManager(stepsLayoutManager);
 
-        stepsAdapter = new StepsAdapter(recipe.getSteps(), (StepsAdapter.StepClickListener) getActivity());
+        stepsAdapter = new StepsAdapter(recipe.getSteps(), (StepsAdapter.StepClickListener) getActivity(), isTwoPane);
         stepsRecycler.setAdapter(stepsAdapter);
     }
 

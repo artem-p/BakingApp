@@ -22,10 +22,12 @@ public final class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsV
     private List<Step> steps;
     private StepClickListener stepClickListener;
     private int selectedPosition;
+    private boolean isTwoPane;
 
-    public StepsAdapter(List<Step> steps, StepClickListener stepClickListener) {
+    public StepsAdapter(List<Step> steps, StepClickListener stepClickListener, boolean isTwoPane) {
         this.steps = steps;
         this.stepClickListener = stepClickListener;
+        this.isTwoPane = isTwoPane;
     }
 
     @Override
@@ -45,7 +47,10 @@ public final class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsV
             Step step = steps.get(position);
             holder.stepTitle.setText(step.asText());
 
-            holder.itemView.setSelected(selectedPosition == position);
+            // in two pane mode highlight selected element
+            if (isTwoPane) {
+                holder.itemView.setSelected(selectedPosition == position);
+            }
         }
     }
 
