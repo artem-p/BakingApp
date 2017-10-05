@@ -68,7 +68,7 @@ public class RecipeListFragment extends Fragment implements
         recipeRecyclerView.setLayoutManager(layoutManager);
         recipeRecyclerView.setHasFixedSize(true);
 
-        recipeAdapter = new RecipeAdapter(this);
+        recipeAdapter = new RecipeAdapter(getActivity(), this);
         recipeRecyclerView.setAdapter(recipeAdapter);
     }
 

@@ -22,7 +22,9 @@ import ru.artempugachev.bakingapp.model.Recipe;
  */
 
 public class RecipeListLoader extends AsyncTaskLoader<List<Recipe>> {
-    private static final String RECIPE_JSON_URL = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json";
+    private static final String TEST_RECIPE_JSON_URL = "https://raw.githubusercontent.com/artem-p/BakingApp/master/app/src/main/res/test_baking_json.json";
+    private static final String REAL_RECIPE_JSON_URL = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json";
+    private static final String RECIPE_JSON_URL = TEST_RECIPE_JSON_URL;
 
     private List<Recipe> recipes;
     private RecipeLoadListener recipeLoadListener;
@@ -49,7 +51,6 @@ public class RecipeListLoader extends AsyncTaskLoader<List<Recipe>> {
     }
 
 
-
     @Override
     public List<Recipe> loadInBackground() {
         OkHttpClient okHttpClient = new OkHttpClient();
@@ -57,7 +58,7 @@ public class RecipeListLoader extends AsyncTaskLoader<List<Recipe>> {
                 .url(RECIPE_JSON_URL)
                 .build();
 
-         recipeLoadListener.onStartLoadingRecipes();
+        recipeLoadListener.onStartLoadingRecipes();
 
         List<Recipe> recipes = null;
 
@@ -68,7 +69,8 @@ public class RecipeListLoader extends AsyncTaskLoader<List<Recipe>> {
                 String responseStr = response.body().string();
 
                 Gson gson = new Gson();
-                Type recipeListType = new TypeToken<List<Recipe>>(){}.getType();
+                Type recipeListType = new TypeToken<List<Recipe>>() {
+                }.getType();
                 recipes = gson.fromJson(responseStr, recipeListType);
             }
         } catch (IOException e) {
@@ -82,6 +84,7 @@ public class RecipeListLoader extends AsyncTaskLoader<List<Recipe>> {
 
     public interface RecipeLoadListener {
         void onStartLoadingRecipes();
+
         void onFinishLoadingRecipes();
     }
 }
