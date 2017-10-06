@@ -47,13 +47,14 @@ public class RecipeDetailsFragment extends Fragment {
         if (arguments != null) {
             recipe = arguments.getParcelable(MainActivity.RECIPES_KEY);
 
+            isTwoPane = arguments.getBoolean(MainActivity.IS_TWO_PANE_EXTRA);
+
             if (recipe != null) {
                 fillViews(recipe);
             } else {
                 showNoRecipe();
             }
 
-            isTwoPane = arguments.getBoolean(MainActivity.IS_TWO_PANE_EXTRA);
         }
 
         return rootView;
