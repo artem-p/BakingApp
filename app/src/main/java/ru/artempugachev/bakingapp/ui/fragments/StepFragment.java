@@ -214,7 +214,7 @@ public class StepFragment extends Fragment{
     private void showStepViews() {
         stepDescriptionScroll.setVisibility(View.VISIBLE);
         playerView.setVisibility(View.VISIBLE);
-        noStepDataMessage.setVisibility(View.INVISIBLE);
+        noStepDataMessage.setVisibility(View.GONE);
     }
 
     /**
