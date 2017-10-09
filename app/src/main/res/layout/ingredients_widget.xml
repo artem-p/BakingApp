@@ -3,15 +3,27 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:padding="@dimen/ingredients_widget_padding"
     android:id="@+id/ingredients_widget_root_layout"
     >
+
+    <!-- Recipe name -->
+    <TextView
+        android:id="@+id/ingredients_widget_recipe_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:padding="@dimen/ingredients_widget_recipe_name_padding"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        />
 
     <!-- Ingredients list -->
     <ListView
         android:id="@+id/ingredients_widget_ingredients_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/ingredients_widget_padding"
+        >
 
     </ListView>
 </LinearLayout>

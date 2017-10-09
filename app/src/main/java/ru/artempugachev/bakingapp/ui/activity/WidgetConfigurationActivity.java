@@ -77,7 +77,7 @@ public class WidgetConfigurationActivity extends AppCompatActivity implements Re
 
     @Override
     public void onRecipeClick(int position) {
-        updateWidget(position);
+        updateWidget(position, adapter.getRecipeName(position));
         Intent resultIntent = new Intent();
         resultIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
         setResult(RESULT_OK, resultIntent);
@@ -87,12 +87,14 @@ public class WidgetConfigurationActivity extends AppCompatActivity implements Re
     /**
      * Updates ingredients in list widget
      * */
-    private void updateWidget(int recipeId) {
+    private void updateWidget(int recipeId, String recipeName) {
         writeRecipeForWidgetToPrefs(widgetId, recipeId);
 
         Intent updateWidgetIntent = new Intent();
         updateWidgetIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
         updateWidgetIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+        updateWidgetIntent.putExtra(MainActivity.RECIPE_NAME_EXTRA, recipeName);
+
 
         updateWidgetIntent.setComponent(new ComponentName(this, IngredientsWidgetProvider.class));
 

@@ -55,6 +55,13 @@ public class WidgetRecipeAdapter extends RecyclerView.Adapter<WidgetRecipeAdapte
         return recipes != null ? recipes.size() : 0;
     }
 
+    public String getRecipeName(int position) {
+        if (recipes != null && !recipes.isEmpty() && recipes.size() > position) {
+            return recipes.get(position).getName();
+        } else
+            return "";
+    }
+
     public class WidgetRecipeViewHolder extends RecyclerView.ViewHolder
                 implements View.OnClickListener {
         @BindView(R.id.widget_configuration_recipe_item)

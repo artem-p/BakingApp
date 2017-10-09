@@ -20,6 +20,26 @@ import ru.artempugachev.bakingapp.ui.activity.MainActivity;
 public class IngredientsWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        update(context, appWidgetManager, appWidgetIds, null);
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        final String action = intent.getAction();
+        if (action.equals(AppWidgetManager.ACTION_APPWIDGET_UPDATE)) {
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+            ComponentName componentName = new ComponentName(context, IngredientsWidgetProvider.class);
+            int[] widgetIds = {intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1)};
+            String recipeName = intent.getStringExtra(MainActivity.RECIPE_NAME_EXTRA);
+            update(context, appWidgetManager, widgetIds, recipeName);
+
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetManager.getAppWidgetIds(componentName),
+                    R.id.ingredients_widget_ingredients_list);
+        }
+        super.onReceive(context, intent);
+    }
+
+    public void update (Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds, String recipeName) {
         for (int widgetId : appWidgetIds) {
             int recipeId = readRecipeIdFromPrefs(context, widgetId);
 
@@ -34,25 +54,12 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
 
             remoteViews.setRemoteAdapter(R.id.ingredients_widget_ingredients_list, widgetServiceIntent);
 
+            remoteViews.setTextViewText(R.id.ingredients_widget_recipe_name, recipeName);
+
             appWidgetManager.updateAppWidget(widgetId, remoteViews);
         }
     }
 
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        final String action = intent.getAction();
-        if (action.equals(AppWidgetManager.ACTION_APPWIDGET_UPDATE)) {
-            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            ComponentName componentName = new ComponentName(context, IngredientsWidgetProvider.class);
-            int[] widgetIds = {intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1)};
-
-            this.onUpdate(context, appWidgetManager, widgetIds);
-
-            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetManager.getAppWidgetIds(componentName),
-                    R.id.ingredients_widget_ingredients_list);
-        }
-        super.onReceive(context, intent);
-    }
 
     /**
      * Retrieve recipe id for current widget
