@@ -78,7 +78,6 @@ public class RecipeListFragment extends Fragment implements
     private int calculateColumnsNumber (Context context) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
 
-        // todo for dual pane divide width by the amount of weight allocated to the list
         float width = displayMetrics.widthPixels / displayMetrics.density;
         int scalingFactor = 300;
         int columnsNumber = (int) (width / scalingFactor);
