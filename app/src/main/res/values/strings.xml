@@ -5,4 +5,5 @@
     <string name="default_step_title_text">0. Recipe Introduction</string>
     <string name="ingredients">Ingredients:</string>
     <string name="ingredients_widget_default_text">Choose recipe in Baking App!</string>
+    <string name="no_step_data">No step data</string>
 </resources>

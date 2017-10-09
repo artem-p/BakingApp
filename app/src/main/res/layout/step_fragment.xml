@@ -9,13 +9,14 @@
     >
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
-        android:id="@+id/stepPlayer"
+        android:id="@+id/step_player"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         />
 
     <ScrollView
+        android:id="@+id/step_description_scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="@dimen/step_description_padding"
@@ -30,4 +31,14 @@
             android:textSize="18sp"
             />
     </ScrollView>
+
+    <TextView
+        android:id="@+id/no_step_data_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_step_data"
+        android:layout_gravity="center"
+        android:padding="@dimen/no_step_data_padding"
+        android:textSize="20sp"
+        />
 </LinearLayout>

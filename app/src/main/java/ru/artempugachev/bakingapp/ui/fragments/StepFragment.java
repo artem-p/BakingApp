@@ -1,9 +1,7 @@
 package ru.artempugachev.bakingapp.ui.fragments;
 
-import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,8 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -44,11 +41,17 @@ import ru.artempugachev.bakingapp.ui.activity.MainActivity;
  */
 
 public class StepFragment extends Fragment{
-    @BindView(R.id.stepPlayer)
+    @BindView(R.id.step_player)
     SimpleExoPlayerView playerView;
+
+    @BindView(R.id.step_description_scroll)
+    ScrollView stepDescriptionScroll;
 
     @BindView(R.id.stepDescription)
     TextView stepDescription;
+
+    @BindView(R.id.no_step_data_message)
+    TextView noStepDataMessage;
 
     private SimpleExoPlayer player;
     private Step step = null;
@@ -79,8 +82,8 @@ public class StepFragment extends Fragment{
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         if (step != null) {
+            showStepViews();
             fillStepViews(step);
         } else {
             showNoStepData();
@@ -145,7 +148,6 @@ public class StepFragment extends Fragment{
     private void initializePlayer(String videoUrl, String thumbnailUrl) {
         loadThumbnail(thumbnailUrl);
 
-//        if (player == null) {
         TrackSelector trackSelector = new DefaultTrackSelector();
         LoadControl loadControl = new DefaultLoadControl();
         player = ExoPlayerFactory.newSimpleInstance(getActivity(), trackSelector, loadControl);
@@ -158,7 +160,6 @@ public class StepFragment extends Fragment{
         player.prepare(mediaSource, true, false);
 
         player.setPlayWhenReady(false);
-//        }
     }
 
     /**
@@ -209,10 +210,19 @@ public class StepFragment extends Fragment{
         }
     }
 
+
+    private void showStepViews() {
+        stepDescriptionScroll.setVisibility(View.VISIBLE);
+        playerView.setVisibility(View.VISIBLE);
+        noStepDataMessage.setVisibility(View.INVISIBLE);
+    }
+
     /**
      * Show error message as we don't have step data.
      * */
     private void showNoStepData() {
-        // todo
+        stepDescriptionScroll.setVisibility(View.GONE);
+        playerView.setVisibility(View.GONE);
+        noStepDataMessage.setVisibility(View.VISIBLE);
     }
 }

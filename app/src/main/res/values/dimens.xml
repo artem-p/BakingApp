@@ -14,4 +14,5 @@
     <dimen name="ingredients_widget_padding">8dp</dimen>
     <dimen name="ingredients_widget_list_item_padding">8dp</dimen>
     <dimen name="widget_configuration_list_item_padding">8dp</dimen>
+    <dimen name="no_step_data_padding">16dp</dimen>
 </resources>
