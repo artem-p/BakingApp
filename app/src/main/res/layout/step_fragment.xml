@@ -36,6 +36,7 @@
         android:id="@+id/no_step_data_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         android:text="@string/no_step_data"
         android:layout_gravity="center"
         android:padding="@dimen/no_step_data_padding"
