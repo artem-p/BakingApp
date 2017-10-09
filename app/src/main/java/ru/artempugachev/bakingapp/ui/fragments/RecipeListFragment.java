@@ -37,7 +37,7 @@ public class RecipeListFragment extends Fragment implements
 
     private static final int RECIPE_LIST_LOADER_ID = 42;
 
-    @BindView(R.id.recipeRecycler)
+    @BindView(R.id.recipe_recycler)
     RecyclerView recipeRecyclerView;
 
     RecipeAdapter recipeAdapter;
@@ -101,6 +101,7 @@ public class RecipeListFragment extends Fragment implements
 
     @Override
     public void onLoadFinished(Loader<List<Recipe>> loader, List<Recipe> recipes) {
+//        recipes = null; // todo debug
         if (recipes != null && !recipes.isEmpty()) {
             recipeAdapter.setRecipes(recipes);
             storeInPref(recipes);

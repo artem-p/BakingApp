@@ -4,8 +4,6 @@ package ru.artempugachev.bakingapp;
  * Testing recipe list
  */
 
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -16,7 +14,6 @@ import org.junit.runner.RunWith;
 
 import ru.artempugachev.bakingapp.ui.activity.MainActivity;
 
-import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -37,7 +34,7 @@ public class RecipeListTest {
      * */
     @Test
     public void clickRecipeItem_opensDetailsActivity() {
-        onView(withId(R.id.recipeRecycler)).perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+        onView(withId(R.id.recipe_recycler)).perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
         onView(withId(R.id.ingredientsTextView)).check(matches(isDisplayed()));
     }
 }
