@@ -86,7 +86,7 @@ class IngredientsListViewFactory implements RemoteViewsService.RemoteViewsFactor
     @Override
     public int getCount() {
         if (recipe != null && recipe.getIngredients() != null) {
-            return recipe.getIngredients().size() + 1; // + 1 for recipe name, it is first element
+            return recipe.getIngredients().size();
         } else {
             return 0;
         }
@@ -96,19 +96,12 @@ class IngredientsListViewFactory implements RemoteViewsService.RemoteViewsFactor
     public RemoteViews getViewAt(int position) {
         RemoteViews remoteViews = null;
 
-        if (position == 0) {
-            // First element is recipe name
-            String recipeName = recipe != null ? recipe.getName() : "";
-            remoteViews = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget_list_header);
-            remoteViews.setTextViewText(R.id.ingredients_widget_list_header, recipeName);
-        } else {
-            if (recipe != null) {
-                List<Ingredient> ingredients = recipe.getIngredients();
-                if (ingredients != null && !ingredients.isEmpty() && ingredients.size() > position) {
-                    String ingredient = ingredients.get(position).asText();
-                    remoteViews = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget_list_item);
-                    remoteViews.setTextViewText(R.id.ingredients_widget_list_item_text, ingredient);
-                }
+        if (recipe != null) {
+            List<Ingredient> ingredients = recipe.getIngredients();
+            if (ingredients != null && !ingredients.isEmpty() && ingredients.size() > position) {
+                String ingredient = ingredients.get(position).asText();
+                remoteViews = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget_list_item);
+                remoteViews.setTextViewText(R.id.ingredients_widget_list_item_text, ingredient);
             }
         }
 
@@ -122,7 +115,7 @@ class IngredientsListViewFactory implements RemoteViewsService.RemoteViewsFactor
 
     @Override
     public int getViewTypeCount() {
-        return 2;
+        return 1;
     }
 
     @Override
