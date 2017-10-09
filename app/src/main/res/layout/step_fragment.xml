@@ -11,13 +11,16 @@
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
         android:id="@+id/stepPlayer"
         android:layout_width="match_parent"
-        android:layout_height="250dp"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:padding="@dimen/step_description_padding"
         android:layout_margin="@dimen/step_description_margin"
+        android:layout_weight="1"
         >
 
         <TextView
