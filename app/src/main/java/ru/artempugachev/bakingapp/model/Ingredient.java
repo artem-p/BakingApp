@@ -31,7 +31,19 @@ public final class Ingredient implements Parcelable {
      * Name (quantity measure)
      * */
     public String asText() {
-        return name + " (" + quantity + " " + measureUnit + ")";
+        String quantityStr;
+
+        // we don't want to display decimal digits for int values (6.0 TBSP)
+        // so check if quantity is int (check rounded-down value of quantity is the same as quantity)
+        if (Math.floor(quantity) == quantity) {
+            // quantity can be display as int
+            quantityStr = String.valueOf(Math.round(quantity));
+        } else {
+            // quantity should be double
+            quantityStr = String.valueOf(quantity);
+        }
+
+        return name + " (" + quantityStr + " " + measureUnit + ")";
     }
 
     /**
