@@ -17,6 +17,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -39,6 +40,9 @@ public class RecipeListFragment extends Fragment implements
 
     @BindView(R.id.recipe_recycler)
     RecyclerView recipeRecyclerView;
+
+    @BindView(R.id.recipe_error_message)
+    TextView recipeErrorMessage;
 
     RecipeAdapter recipeAdapter;
 
@@ -101,14 +105,25 @@ public class RecipeListFragment extends Fragment implements
 
     @Override
     public void onLoadFinished(Loader<List<Recipe>> loader, List<Recipe> recipes) {
-//        recipes = null; // todo debug
         if (recipes != null && !recipes.isEmpty()) {
+            showRecipeViews();
             recipeAdapter.setRecipes(recipes);
             storeInPref(recipes);
         } else {
-            // todo handle no recipes
+            showErrorMessage();
         }
 
+    }
+
+
+    private void showRecipeViews() {
+        recipeRecyclerView.setVisibility(View.VISIBLE);
+        recipeErrorMessage.setVisibility(View.INVISIBLE);
+    }
+
+    private void showErrorMessage() {
+        recipeRecyclerView.setVisibility(View.INVISIBLE);
+        recipeErrorMessage.setVisibility(View.VISIBLE);
     }
 
     @Override
