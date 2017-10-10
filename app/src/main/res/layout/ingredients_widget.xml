@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:textSize="22sp"
         android:padding="@dimen/ingredients_widget_recipe_name_padding"
-        android:background="@color/colorPrimary"
+        android:background="@color/primary"
         android:textColor="@android:color/white"
         />
 
