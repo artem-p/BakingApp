@@ -53,7 +53,7 @@ public class RecipeDetailsTest {
     public void clickStepItem_opensStepDetails () {
         boolean isTwoPane = activityTestRule.getActivity().findViewById(R.id.two_pane_recipe_layout) != null;
 
-        onView(withId(R.id.stepsRecycler)).perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+        onView(withId(R.id.recipe_details_steps_recycler)).perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
 
         if (!isTwoPane) {
             // in phone mode step pager is on the screen

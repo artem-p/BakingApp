@@ -25,7 +25,7 @@ public class RecipeDetailsFragment extends Fragment {
     @BindView(R.id.ingredientsTextView)
     TextView ingredientsTextView;
 
-    @BindView(R.id.stepsRecycler)
+    @BindView(R.id.recipe_details_steps_recycler)
     RecyclerView stepsRecycler;
 
     private StepsAdapter stepsAdapter;
