@@ -141,11 +141,12 @@ public class StepFragment extends Fragment{
     }
 
     private void hidePlayerView() {
-        playerView.setVisibility(View.INVISIBLE);
+        playerView.setVisibility(View.GONE);
     }
 
 
     private void initializePlayer(String videoUrl, String thumbnailUrl) {
+        playerView.setVisibility(View.VISIBLE);
         loadThumbnail(thumbnailUrl);
 
         TrackSelector trackSelector = new DefaultTrackSelector();
