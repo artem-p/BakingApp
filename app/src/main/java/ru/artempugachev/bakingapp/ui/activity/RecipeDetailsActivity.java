@@ -1,6 +1,7 @@
 package ru.artempugachev.bakingapp.ui.activity;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,13 +14,20 @@ import ru.artempugachev.bakingapp.ui.fragments.RecipeDetailsFragment;
 import ru.artempugachev.bakingapp.ui.fragments.StepFragment;
 
 public class RecipeDetailsActivity extends AppCompatActivity implements StepsAdapter.StepClickListener {
+    private static final String RECIPE_DETAILS_FRAGMENT_KEY = "recipe_details_fragment";
     private Recipe recipe = null;
     private boolean isTwoPane;
+    private RecipeDetailsFragment recipeDetailsFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
+
+        if (savedInstanceState != null) {
+            recipeDetailsFragment = (RecipeDetailsFragment) getSupportFragmentManager().getFragment(savedInstanceState, RECIPE_DETAILS_FRAGMENT_KEY);
+        }
 
         // check two pane mode
         isTwoPane = findViewById(R.id.two_pane_recipe_layout) != null;
@@ -29,6 +37,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepsAda
         if (isTwoPane) {
             addStepFragment(0);
         }
+
     }
 
 
@@ -39,7 +48,9 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepsAda
             recipe = intent.getParcelableExtra(MainActivity.RECIPES_KEY);
         }
 
-        RecipeDetailsFragment recipeDetailsFragment = new RecipeDetailsFragment();
+        if (recipeDetailsFragment == null) {
+            recipeDetailsFragment = new RecipeDetailsFragment();
+        }
 
         Bundle arguments = new Bundle();
         arguments.putParcelable(MainActivity.RECIPES_KEY, recipe);
@@ -90,5 +101,11 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepsAda
             }
         }
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getSupportFragmentManager().putFragment(outState, RECIPE_DETAILS_FRAGMENT_KEY, recipeDetailsFragment);
     }
 }
