@@ -44,7 +44,7 @@ public class RecipeDetailsFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
         // hack to start scroll view at its top, not at recycler view
-        stepsRecycler.setFocusable(false);
+//        stepsRecycler.setFocusable(false);
 
         Bundle arguments = getArguments();
         if (arguments != null) {
