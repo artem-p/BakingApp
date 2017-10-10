@@ -23,7 +23,6 @@ import ru.artempugachev.bakingapp.ui.activity.MainActivity;
  */
 
 public class RecipeDetailsFragment extends Fragment {
-    private static final String STEPS_RECYCLER_STATE_KEY = "steps_recycler_key";
     @BindView(R.id.ingredientsTextView)
     TextView ingredientsTextView;
 
@@ -77,32 +76,6 @@ public class RecipeDetailsFragment extends Fragment {
 
         stepsAdapter = new StepsAdapter(recipe.getSteps(), (StepsAdapter.StepClickListener) getActivity(), isTwoPane);
         stepsRecycler.setAdapter(stepsAdapter);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if (savedInstanceState != null) {
-            stepsRecyclerState = savedInstanceState.getParcelable(STEPS_RECYCLER_STATE_KEY);
-            stepsLayoutManager.onRestoreInstanceState(stepsRecyclerState);
-        }
-    }
-
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//
-//        if (stepsRecyclerState != null) {
-//            stepsLayoutManager.onRestoreInstanceState(stepsRecyclerState);
-//        }
-//    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        stepsRecyclerState = stepsLayoutManager.onSaveInstanceState();
-        outState.putParcelable(STEPS_RECYCLER_STATE_KEY, stepsRecyclerState);
     }
 
 

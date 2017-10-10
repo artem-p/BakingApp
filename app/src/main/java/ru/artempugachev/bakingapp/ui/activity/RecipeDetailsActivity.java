@@ -50,17 +50,18 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepsAda
 
         if (recipeDetailsFragment == null) {
             recipeDetailsFragment = new RecipeDetailsFragment();
+
+            Bundle arguments = new Bundle();
+            arguments.putParcelable(MainActivity.RECIPES_KEY, recipe);
+            arguments.putBoolean(MainActivity.IS_TWO_PANE_EXTRA, isTwoPane);
+            recipeDetailsFragment.setArguments(arguments);
+
+            FragmentManager fm = getSupportFragmentManager();
+            fm.beginTransaction()
+                    .add(R.id.recipe_details_fragment_container, recipeDetailsFragment)
+                    .commit();
         }
 
-        Bundle arguments = new Bundle();
-        arguments.putParcelable(MainActivity.RECIPES_KEY, recipe);
-        arguments.putBoolean(MainActivity.IS_TWO_PANE_EXTRA, isTwoPane);
-        recipeDetailsFragment.setArguments(arguments);
-
-        FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction()
-                .add(R.id.recipe_details_fragment_container, recipeDetailsFragment)
-                .commit();
 
         if (recipe != null) {
             setTitle(recipe.getName());
