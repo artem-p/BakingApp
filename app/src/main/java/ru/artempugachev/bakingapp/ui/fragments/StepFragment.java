@@ -47,7 +47,7 @@ public class StepFragment extends Fragment{
     @BindView(R.id.step_description_scroll)
     ScrollView stepDescriptionScroll;
 
-    @BindView(R.id.stepDescription)
+    @BindView(R.id.step_description)
     TextView stepDescription;
 
     @BindView(R.id.no_step_data_message)

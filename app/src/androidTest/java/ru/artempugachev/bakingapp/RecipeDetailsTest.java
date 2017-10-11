@@ -36,7 +36,7 @@ public class RecipeDetailsTest {
             Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
             TestRecipeProvider testRecipeProvider = new TestRecipeProvider();
-            Recipe recipe = testRecipeProvider.getRecipe();
+            Recipe recipe = testRecipeProvider.getRecipe(3);
 
             Intent intent = new Intent(targetContext, RecipeDetailsActivity.class);
             intent.putExtra(MainActivity.RECIPES_KEY, recipe);

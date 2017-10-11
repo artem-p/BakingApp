@@ -550,11 +550,11 @@ public class TestRecipeProvider {
             "  }\n" +
             "]";
 
-    public Recipe getRecipe() {
+    public Recipe getRecipe(int recipeId) {
         Gson gson = new Gson();
         Type recipesListType = new TypeToken<ArrayList<Recipe>>(){}.getType();
         List<Recipe> recipes = gson.fromJson(recipesJson, recipesListType);
 
-        return recipes.get(3);
+        return recipes.get(recipeId);
     }
 }
