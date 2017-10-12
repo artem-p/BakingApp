@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.LoadControl;
@@ -41,6 +42,7 @@ import ru.artempugachev.bakingapp.ui.activity.MainActivity;
  */
 
 public class StepFragment extends Fragment{
+    private static final String PLAYER_POSITION_KEY = "player_position";
     @BindView(R.id.step_player)
     SimpleExoPlayerView playerView;
 
@@ -57,6 +59,7 @@ public class StepFragment extends Fragment{
     private Step step = null;
     private boolean isTwoPane;
     private Target thumbnailTarget;
+    private long playerPosition = C.TIME_UNSET;
 
 
     public StepFragment() {
@@ -82,6 +85,11 @@ public class StepFragment extends Fragment{
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if (savedInstanceState != null) {
+            playerPosition = savedInstanceState.getLong(PLAYER_POSITION_KEY);
+        }
+
         if (step != null) {
             showStepViews();
             fillStepViews(step);
@@ -161,6 +169,10 @@ public class StepFragment extends Fragment{
         player.prepare(mediaSource, true, false);
 
         player.setPlayWhenReady(false);
+
+        if (playerPosition != C.TIME_UNSET) {
+            player.seekTo(playerPosition);
+        }
     }
 
     /**
@@ -200,6 +212,11 @@ public class StepFragment extends Fragment{
     @Override
     public void onPause() {
         super.onPause();
+
+        if (player != null) {
+            playerPosition = player.getCurrentPosition();
+        }
+
         releasePlayer();
     }
 
@@ -211,6 +228,12 @@ public class StepFragment extends Fragment{
         }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putLong(PLAYER_POSITION_KEY, playerPosition);
+    }
 
     private void showStepViews() {
         stepDescriptionScroll.setVisibility(View.VISIBLE);
